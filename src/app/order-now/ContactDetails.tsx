@@ -54,6 +54,7 @@ function ContactDetails({ onPrevious }: { onPrevious: () => void }) {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmail(e.target.value);
