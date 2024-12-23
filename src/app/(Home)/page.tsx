@@ -1,26 +1,266 @@
-import Image from "next/image";
+import { builder } from "@builder.io/sdk";
+import "aos/dist/aos.css";
 import Banner from "./Banner";
+import { HomeComps } from "./HomeComps";
 import Solutions from "./Solutions";
-import KnowUs from "./KnowUs";
-import Divider from "./Divider";
-import OurServices from "./OurServices";
-import WorkProcess from "./WorkProcess";
-import Faq from "./Faq";
-import Testimonials from "./Testimonials";
 
-export default function Home() {
+// export const generateMetadata = async (): Promise<Metadata> => {
+//   const content = await builder
+//     .get("homepage", {
+//       userAttributes: {
+//         urlPath: "/",
+//       },
+//       apiKey: "3021e7c2623e453297ba70ab561879f3",
+//     })
+//     .toPromise();
+
+//   return {
+//     title: content?.data?.metatitle || "Default Title",
+//     description: content?.data?.metadescription || "Default Description",
+//     alternates: {
+//       canonical: content?.data?.canonical || "Default Canonical",
+//     },
+//     robots: {
+//       index: content?.data?.robots?.index,
+//       follow: content?.data?.robots?.follow,
+//       nocache: content?.data?.robots?.nocache,
+//       googleBot: {
+//         index: content?.data?.robots?.googleBot.index,
+//         follow: content?.data?.robots?.googleBot.follow,
+//         noimageindex: content?.data?.robots?.googleBot.noimageindex,
+//         "max-video-preview": -1,
+//         "max-image-preview": "large",
+//         "max-snippet": -1,
+//       },
+//     },
+//   };
+// };
+
+const Page = async () => {
+  const content = await builder
+    .get("homepage", {
+      userAttributes: {
+        urlPath: "/",
+      },
+      apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
+    })
+    .toPromise();
+
+  if (!content) {
+    console.error("Home data is null. Rendering fallback UI.");
+    return <div>Failed to load data. Please try again later.</div>;
+  }
+
+  const customComponents = [
+    {
+      component: Banner,
+      name: "Banner",
+      inputs: [
+        {
+          name: "MainHeading",
+          type: "string",
+        },
+        {
+          name: "SubHeading",
+          type: "string",
+        },
+        {
+          name: "SubHeading_two",
+          type: "string",
+        },
+        {
+          name: "Bullet1_icon",
+          type: "file",
+        },
+
+        {
+          name: "Bullet2_icon",
+          type: "file",
+        },
+
+        {
+          name: "Bullet3_icon",
+          type: "file",
+        },
+
+        {
+          name: "Ordernowbtn_icon",
+          type: "file",
+        },
+        {
+          name: "Ordernowbtn_title",
+          type: "string",
+        },
+        {
+          name: "Ordernowbtn_link",
+          type: "string",
+        },
+        {
+          name: "Chatonwhatsappbtn_icon",
+          type: "file",
+        },
+
+        {
+          name: "Chatonwhatsappbtn_title",
+          type: "string",
+        },
+
+        {
+          name: "Chatonwhatsappbtn_link",
+          type: "string",
+        },
+        {
+          name: "Formtopbar",
+          type: "string",
+        },
+        {
+          name: "Formheading",
+          type: "string",
+        },
+        {
+          name: "Inputone",
+          type: "string",
+        },
+        {
+          name: "Inputtwo",
+          type: "string",
+        },
+        {
+          name: "Inputthree",
+          type: "string",
+        },
+        {
+          name: "Formbutton",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: Solutions,
+      name: "Solutions",
+      inputs: [
+        {
+          name: "MainHeading",
+          type: "string",
+        },
+
+        {
+          name: "Card_one_icon",
+          type: "file",
+        },
+        {
+          name: "Card_one_title",
+          type: "string",
+        },
+        {
+          name: "Card_one_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_two_icon",
+          type: "file",
+        },
+        {
+          name: "Card_two_title",
+          type: "string",
+        },
+        {
+          name: "Card_two_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_three_icon",
+          type: "file",
+        },
+        {
+          name: "Card_three_title",
+          type: "string",
+        },
+        {
+          name: "Card_three_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_four_icon",
+          type: "file",
+        },
+        {
+          name: "Card_four_title",
+          type: "string",
+        },
+        {
+          name: "Card_four_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_five_icon",
+          type: "file",
+        },
+        {
+          name: "Card_five_title",
+          type: "string",
+        },
+        {
+          name: "Card_five_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_six_icon",
+          type: "file",
+        },
+        {
+          name: "Card_six_title",
+          type: "string",
+        },
+        {
+          name: "Card_six_description",
+          type: "string",
+        },
+      ],
+    },
+  ];
+
   return (
-    <> 
-      <Banner />
-      <Solutions />
-      <KnowUs/>
-      <Divider/>
-      <OurServices/>
-      <WorkProcess/>
-      <Faq/>
-      <Testimonials/>
-    
-    </>
+    <div>
+      {/* JSON-LD Schema Markup */}
+      {/* <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(content.data.organizationschema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(content.data.websiteschema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(content.data.productschema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(content.data.productschema),
+        }}
+      /> */}
 
+      <HomeComps
+        response={content}
+        customComponents={customComponents}
+        // darklogo={content?.data?.darklogo}
+        // lightlogo={content?.data?.lightlogo}
+      />
+    </div>
   );
-}
+};
+
+export default Page;

@@ -9,7 +9,8 @@ import { DatePickerDemo } from "@/components/ui/datepicker";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { TypewriterEffectSmoothDemo } from "./TypeWriterForm";
 
-function BannerForm() {
+function BannerForm({Formtopbar,
+  Formheading,}:any) {
   const [date, setDate] = React.useState<Date>();
   const [activeButton, setActiveButton] = useState<string | null>("writing");
   const [wordCount, setWordCount] = useState<number>(250);
@@ -112,7 +113,7 @@ function BannerForm() {
         as="button"
         className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
       >
-        <span>Upto 50% Discount </span>
+        <span>{Formtopbar}</span>
       </HoverBorderGradient>
         </div>
         <div className="flex justify-center  ">
