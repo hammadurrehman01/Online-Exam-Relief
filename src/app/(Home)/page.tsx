@@ -3,6 +3,12 @@ import "aos/dist/aos.css";
 import Banner from "./Banner";
 import { HomeComps } from "./HomeComps";
 import Solutions from "./Solutions";
+import KnowUs from "./KnowUs";
+import Divider from "./Divider";
+import OurServices from "./OurServices";
+import WorkProcess from "./WorkProcess";
+import Faq from "./Faq";
+import Testimonials from "./Testimonials";
 
 // export const generateMetadata = async (): Promise<Metadata> => {
 //   const content = await builder
@@ -219,6 +225,332 @@ const Page = async () => {
         },
         {
           name: "Card_six_description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: KnowUs,
+      name: "KnowUs",
+      inputs: [
+        {
+          name: "MainHeading",
+          type: "string",
+        },
+        {
+          name: "SubHeading",
+          type: "string",
+        },
+
+        {
+          name: "Bullet_one_icon",
+          type: "file",
+        },
+        {
+          name: "Bullet_one_title",
+          type: "string",
+        },
+        {
+          name: "Bullet_one_description",
+          type: "string",
+        },
+
+        {
+          name: "Bullet_two_icon",
+          type: "file",
+        },
+        {
+          name: "Bullet_two_title",
+          type: "string",
+        },
+        {
+          name: "Bullet_two_description",
+          type: "string",
+        },
+        {
+          name: "button_title",
+          type: "string",
+        },
+        {
+          name: "button_link",
+          type: "string",
+        },
+        {
+          name: "image_one",
+          type: "file",
+        },
+        {
+          name: "image_two",
+          type: "file",
+        },
+        {
+          name: "image_three",
+          type: "file",
+        },
+      ],
+    },
+    {
+      component: Divider,
+      name: "Divider",
+      inputs: [
+        {
+          name: "MainHeading_part_one",
+          type: "string",
+        },
+        {
+          name: "MainHeading_part_two",
+          type: "string",
+        },
+        {
+          name: "button_title",
+          type: "string",
+        },
+        {
+          name: "button_link",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: OurServices,
+      name: "OurServices",
+      inputs: [
+        {
+          name: "top_bar",
+          type: "string",
+        },
+        {
+          name: "Main_heading",
+          type: "string",
+        },
+        {
+          name: "Card_one_icon",
+          type: "file",
+        },
+        {
+          name: "Card_one_title",
+          type: "string",
+        },
+        {
+          name: "Card_one_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_two_icon",
+          type: "file",
+        },
+        {
+          name: "Card_two_title",
+          type: "string",
+        },
+        {
+          name: "Card_two_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_three_icon",
+          type: "file",
+        },
+        {
+          name: "Card_three_title",
+          type: "string",
+        },
+        {
+          name: "Card_three_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_four_icon",
+          type: "file",
+        },
+        {
+          name: "Card_four_title",
+          type: "string",
+        },
+        {
+          name: "Card_four_description",
+          type: "string",
+        },
+        {
+          name: "button_title",
+          type: "string",
+        },
+        {
+          name: "button_link",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: WorkProcess,
+      name: "WorkProcess",
+      inputs: [
+        {
+          name: "Main_heading",
+          type: "string",
+        },
+        {
+          name: "Card_one_icon",
+          type: "file",
+        },
+        {
+          name: "Card_one_title",
+          type: "string",
+        },
+        {
+          name: "Card_one_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_two_icon",
+          type: "file",
+        },
+        {
+          name: "Card_two_title",
+          type: "string",
+        },
+        {
+          name: "Card_two_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_three_icon",
+          type: "file",
+        },
+        {
+          name: "Card_three_title",
+          type: "string",
+        },
+        {
+          name: "Card_three_description",
+          type: "string",
+        },
+
+        {
+          name: "Card_four_icon",
+          type: "file",
+        },
+        {
+          name: "Common_icon",
+          type: "file",
+        },
+        {
+          name: "Card_four_title",
+          type: "string",
+        },
+        {
+          name: "Card_four_description",
+          type: "string",
+        },
+        {
+          name: "button_title",
+          type: "string",
+        },
+        {
+          name: "button_link",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: Faq,
+      name: "Faq",
+      inputs: [
+        {
+          name: "Main_heading",
+          type: "string",
+        },
+        {
+          name: "Main_image",
+          type: "file",
+        },
+        {
+          name: "faq_one_title",
+          type: "string",
+        },
+        {
+          name: "faq_one_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_two_title",
+          type: "string",
+        },
+        {
+          name: "faq_two_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_three_title",
+          type: "string",
+        },
+        {
+          name: "faq_three_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_four_title",
+          type: "string",
+        },
+        {
+          name: "faq_four_description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      component: Testimonials,
+      name: "Testimonials",
+      inputs: [
+        {
+          name: "Main_heading",
+          type: "string",
+        },
+        {
+          name: "Main_image",
+          type: "file",
+        },
+        {
+          name: "faq_one_title",
+          type: "string",
+        },
+        {
+          name: "faq_one_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_two_title",
+          type: "string",
+        },
+        {
+          name: "faq_two_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_three_title",
+          type: "string",
+        },
+        {
+          name: "faq_three_description",
+          type: "string",
+        },
+
+        {
+          name: "faq_four_title",
+          type: "string",
+        },
+        {
+          name: "faq_four_description",
           type: "string",
         },
       ],
