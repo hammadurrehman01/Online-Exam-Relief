@@ -1,7 +1,7 @@
 import { builder } from "@builder.io/sdk";
 import "aos/dist/aos.css";
-import Banner from "./Banner";
 import { HomeComps } from "./HomeComps";
+import Banner from "./Banner";
 import Solutions from "./Solutions";
 import KnowUs from "./KnowUs";
 import Divider from "./Divider";
@@ -447,14 +447,6 @@ const Page = async () => {
           name: "Card_four_description",
           type: "string",
         },
-        {
-          name: "button_title",
-          type: "string",
-        },
-        {
-          name: "button_link",
-          type: "string",
-        },
       ],
     },
     {
@@ -514,43 +506,45 @@ const Page = async () => {
           name: "Main_heading",
           type: "string",
         },
-        {
-          name: "Main_image",
-          type: "file",
-        },
-        {
-          name: "faq_one_title",
-          type: "string",
-        },
-        {
-          name: "faq_one_description",
-          type: "string",
-        },
 
         {
-          name: "faq_two_title",
+          name: "Testimonial_one_title",
           type: "string",
         },
         {
-          name: "faq_two_description",
-          type: "string",
-        },
-
-        {
-          name: "faq_three_title",
+          name: "Testimonial_one_name",
           type: "string",
         },
         {
-          name: "faq_three_description",
-          type: "string",
-        },
-
-        {
-          name: "faq_four_title",
+          name: "Testimonial_two_title",
           type: "string",
         },
         {
-          name: "faq_four_description",
+          name: "Testimonial_two_name",
+          type: "string",
+        },
+        {
+          name: "Testimonial_three_title",
+          type: "string",
+        },
+        {
+          name: "Testimonial_three_name",
+          type: "string",
+        },
+        {
+          name: "Testimonial_four_title",
+          type: "string",
+        },
+        {
+          name: "Testimonial_four_name",
+          type: "string",
+        },
+        {
+          name: "Testimonial_five_title",
+          type: "string",
+        },
+        {
+          name: "Testimonial_five_name",
           type: "string",
         },
       ],

@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "./(Home)/Navbar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Footer from "./(Home)/Footer";
+import { Bounce, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const inter = Outfit({
   subsets: ["latin"],
@@ -19,9 +21,9 @@ export const metadata: Metadata = {
       index: false,
       follow: false,
       noimageindex: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
@@ -33,18 +35,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={inter.className}
-      >
+      <body className={inter.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >  
-        <Navbar />
-        {children}
-        <Footer/>
+        >
+          <Navbar />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
+          {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

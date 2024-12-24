@@ -2,9 +2,9 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from "@/lib/utils"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const services = [
+const defaultServices = [
   {
     category: "Exam Assistance Services",
     href: "/exam-assistance",
@@ -53,7 +53,16 @@ const services = [
 ]
 
 function ServicesMegaMenu() {
-  const [activeCategory, setActiveCategory] = React.useState<string | null>(null)
+  const [activeCategory, setActiveCategory] = React.useState<string | null>(null);
+
+  const [services, setServices] = useState(defaultServices);
+
+  useEffect(() => {
+    const storedServices = JSON.parse(localStorage.getItem("services") || "[]");
+    setServices([...defaultServices, ...storedServices]);
+  }, []);
+
+
 
   return (
     <NavigationMenu>
@@ -65,9 +74,9 @@ function ServicesMegaMenu() {
           <NavigationMenuContent>
             <div className="flex justify-center p-4 lg:w-[800px]">
               <div className="w-1/3 border-r pr-4">
-                {services.map((service) => (
+                {services.map((service, index) => (
                   <NavigationMenuLink
-                    key={service.category}
+                    key={index}
                     asChild
                   >
                     <Link
