@@ -24,7 +24,7 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-zinc-50 dark:bg-[#1A1A1D] sticky top-0 shadow-xl z-[99999]">
+    <nav className="bg-zinc-50 dark:bg-[#a0a0cc] sticky top-0 shadow-xl z-[99999]">
     <div className="max-w-7xl py-2 mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between py-2">
         <div className="flex items-center">

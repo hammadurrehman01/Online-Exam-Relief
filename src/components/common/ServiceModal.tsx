@@ -33,18 +33,50 @@ interface Props {
 }
 
 const defaultServices = [
-  { title: "Take My Exam", href: "/take-my-exam" },
-  { title: "Take My GRE Exam", href: "/take-my-gre-exam" },
-  { title: "Take GMAT Online Exam", href: "/take-gmat-online-exam" },
-  { title: "Take LSAT Exam Online", href: "/lsat-exam-prep" },
-  { title: "Toefl Exam Online", href: "/toefl-exam-online" },
-  { title: "Take my Teas Exam For me", href: "/take-my-teas-exam-for-me" },
-  { title: "Hesi Exam", href: "/hesi-exam" },
-  { title: "Take My GED For Me", href: "/take-my-ged-for-me" },
-  { title: "PTE Academic Online", href: "/pte-academic-online" },
   {
-    title: "Pay Someone To Take My Class",
-    href: "/pay-someone-to-take-my-class",
+    category: "Exam Assistance Services",
+    href: "/exam-assistance",
+    subcategories: [
+      { name: "Timed Test Support", href: "/exam-assistance/timed-test-support" },
+      { name: "Live Exam Support", href: "/exam-assistance/online-exam-help" },
+      { name: "Mock Exams & Practice Tests", href: "/exam-assistance/practice-test-preparation" },
+    ],
+  },
+  {
+    category: "Subject-Specific Services",
+    href: "/subject-specific",
+    subcategories: [
+      { name: "Math Exam Help", href: "/subject-specific/math-exam-help" },
+      { name: "Science Exam Help", href: "/subject-specific/science-exam-help" },
+      { name: "Engineering Exam Help", href: "/subject-specific/engineering-exam-help" },
+      { name: "Law Exam Help", href: "/subject-specific/law-exam-help" },
+      { name: "Business & Finance Exam Help", href: "/subject-specific/business-finance-exam-help" },
+      { name: "Humanities Exam Help", href: "/subject-specific/humanities-exam-help" },
+    ],
+  },
+  {
+    category: "Assignment Help Services",
+    href: "/assignment-help",
+    subcategories: [
+      { name: "Essay & Paper Writing Help", href: "/assignment-help/essay-paper-writing" },
+      { name: "Project Support", href: "/assignment-help/project-support" },
+    ],
+  },
+  {
+    category: "Test Preparation Packages",
+    href: "/test-preparation",
+    subcategories: [
+      { name: "Personalized Study Plans", href: "/test-preparation/personalized-study-plans" },
+      { name: "One-on-One Tutoring", href: "/test-preparation/one-on-one-tutoring" },
+    ],
+  },
+  {
+    category: "Emergency Exam Support",
+    href: "/emergency-exam-support",
+    subcategories: [
+      { name: "Last-Minute Exam Help", href: "/emergency-exam-support/last-minute-help" },
+      { name: "Overnight Preparation Assistance", href: "/emergency-exam-support/overnight-preparation" },
+    ],
   },
 ];
 
@@ -54,7 +86,7 @@ export function ServiceModal({
   services,
   setServices,
 }: Props) {
-  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [slug, setSlug] = useState("");
   const [loading, setLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -71,18 +103,18 @@ export function ServiceModal({
       toast.error("The service already exists");
     } else {
       try {
-        if (title && slug) {
+        if (category && slug) {
           const response = await fetch("/api/duplicate-page", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, newSlug: slug }),
+            body: JSON.stringify({ category, newSlug: `/${slug.replaceAll(" ", "-")}` }),
           });
           const data = await response.json();
 
           if (response.ok) {
             toast.success(`Page created at ${slug}`);
             if (isChecked) {
-              const updatedServices = [...services, { title, href: slug }];
+              const updatedServices = [...services, { category, href: `/${slug.replaceAll(" ", "-")}` }];
               setServices(updatedServices);
               localStorage.setItem("services", JSON.stringify(updatedServices));
             }
@@ -100,7 +132,6 @@ export function ServiceModal({
   };
 
   const AddPageToService = async () => {
-    console.log("Sdasdsadas");
 
     const existingService = services.find(
       (item: any) => item.href === service.href
@@ -119,9 +150,6 @@ export function ServiceModal({
   };
 
   const getAllPages = async () => {
-    // const response = await fetch("/api/get-all-pages");
-    // const data = await response.json();
-
     const data: any = await fetchAllPages();
 
     setExistingPages(data.data);
@@ -150,13 +178,13 @@ export function ServiceModal({
         {!isExistingPageChecked && (
           <div>
             <div className="flex justify-center items-center gap-4">
-              <Label htmlFor="title" className="text-right">
+              <Label htmlFor="category" className="text-right">
                 Title
               </Label>
               <Input
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 className="col-span-3"
                 placeholder="Take My Exam"
               />

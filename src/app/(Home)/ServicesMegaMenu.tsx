@@ -59,9 +59,19 @@ function ServicesMegaMenu() {
 
   useEffect(() => {
     const storedServices = JSON.parse(localStorage.getItem("services") || "[]");
-    setServices([...defaultServices, ...storedServices]);
-  }, []);
 
+    const mergedServices = [
+      ...defaultServices,
+      ...storedServices.filter(
+        (storedService: any) =>
+          !defaultServices.some(
+            (defaultService) => defaultService.category === storedService.category
+          )
+      ),
+    ];
+
+    setServices(mergedServices);
+  }, []);
 
 
   return (
@@ -69,7 +79,7 @@ function ServicesMegaMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-transparent">
-            Services 
+            Services
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="flex justify-center p-4 lg:w-[800px]">
@@ -102,7 +112,7 @@ function ServicesMegaMenu() {
                     <ul className="space-y-1">
                       {services
                         .find((s) => s.category === activeCategory)
-                        ?.subcategories.map((subcat) => (
+                        ?.subcategories?.map((subcat) => (
                           <li key={subcat.name}>
                             <NavigationMenuLink asChild>
                               <Link
