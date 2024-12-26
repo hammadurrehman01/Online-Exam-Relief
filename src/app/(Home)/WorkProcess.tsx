@@ -19,22 +19,6 @@ function WorkProcess({
   Card_four_title,
   Card_four_description,
 }: any) {
-  console.log({
-    Main_heading,
-    Card_one_icon,
-    Card_one_title,
-    Card_one_description,
-    Card_two_icon,
-    Card_two_title,
-    Card_two_description,
-    Card_three_icon,
-    Card_three_title,
-    Card_three_description,
-    Card_four_icon,
-    Common_icon,
-    Card_four_title,
-    Card_four_description,
-  });
 
   return (
     <div className="mt-12 mx-auto max-w-screen-xl">

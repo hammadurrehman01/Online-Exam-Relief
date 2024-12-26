@@ -1,3 +1,5 @@
+"use client";
+
 import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "@/components/builder";
 import Banner from "../(Home)/Banner";
@@ -8,7 +10,6 @@ import OurServices from "../(Home)/OurServices";
 import WorkProcess from "../(Home)/WorkProcess";
 import Faq from "../(Home)/Faq";
 import Testimonials from "../(Home)/Testimonials";
-
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -541,20 +542,30 @@ export default async function Page(props: PageProps) {
     },
   ];
 
-  const content = await builder
-    .get("homepage", {
-      apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
-      url: pathname,
-    })
-    .toPromise();
+  const [homepageContent, categorypageContent] = await Promise.all([
+    builder
+      .get("homepage", {
+        apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
+        url: pathname,
+      })
+      .toPromise(),
+    builder
+      .get("category", {
+        apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
+        url: pathname, // Adjust the URL as necessary for the other model
+      })
+      .toPromise(),
+  ]);
+  console.log("homepageContent ===> ", homepageContent);
+  console.log("categorypageContent ===> ", categorypageContent);
+  console.log("pathname ===> ", pathname);
 
   return (
     <RenderBuilderContent
-      content={content}
-      apiKey="3021e7c2623e453297ba70ab561879f3"
+      content={homepageContent}
+      apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
       model={"homepage"}
       customComponents={customComponents}
     />
   );
 }
- 
