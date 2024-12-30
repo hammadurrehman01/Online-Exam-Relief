@@ -5,9 +5,8 @@ import BannerForm from "./BannerForm";
 import Image from "next/image";
 import Link from "next/link";
 
-
-
-function Banner({  MainHeading,
+function Banner({
+  MainHeading,
   SubHeading,
   SubHeading_two,
   Bullet1_icon,
@@ -20,7 +19,8 @@ function Banner({  MainHeading,
   Chatonwhatsappbtn_title,
   Chatonwhatsappbtn_link,
   Formtopbar,
-  Formheading,}:any) {
+  Formheading,
+}: any) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#eef4ed] dark:bg-gradient-to-b dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97]" />
@@ -35,7 +35,7 @@ function Banner({  MainHeading,
               {SubHeading}
             </h2>
             <p className="mt-6 text-lg text-white max-w-prose text-left">
-             {SubHeading_two}
+              {SubHeading_two}
             </p>
 
             <div
@@ -84,7 +84,14 @@ function Banner({  MainHeading,
               </div>
             </div>
 
-            <CtaButtons Ordernowbtn_icon={Ordernowbtn_icon} Ordernowbtn_title={Ordernowbtn_title} Ordernowbtn_link={Ordernowbtn_link} Chatonwhatsappbtn_icon={Chatonwhatsappbtn_icon} Chatonwhatsappbtn_title={Chatonwhatsappbtn_title} Chatonwhatsappbtn_link={Chatonwhatsappbtn_link}  />
+            <CtaButtons
+              Ordernowbtn_icon={Ordernowbtn_icon}
+              Ordernowbtn_title={Ordernowbtn_title}
+              Ordernowbtn_link={Ordernowbtn_link}
+              Chatonwhatsappbtn_icon={Chatonwhatsappbtn_icon}
+              Chatonwhatsappbtn_title={Chatonwhatsappbtn_title}
+              Chatonwhatsappbtn_link={Chatonwhatsappbtn_link}
+            />
           </div>
 
           <div className="pb-5 px-5 pt-12  ">
@@ -99,12 +106,14 @@ function Banner({  MainHeading,
 
 export default Banner;
 
-export function CtaButtons({Ordernowbtn_icon,
+export function CtaButtons({
+  Ordernowbtn_icon,
   Ordernowbtn_title,
   Ordernowbtn_link,
   Chatonwhatsappbtn_icon,
   Chatonwhatsappbtn_title,
-  Chatonwhatsappbtn_link}:any) {
+  Chatonwhatsappbtn_link,
+}: any) {
   return (
     <div className="flex flex-col md:flex-row lg:justify-start justify-center items-center mt-5 scale-90 md:scale-100">
       <Link href={Ordernowbtn_link || "/order-now"}>
@@ -112,15 +121,21 @@ export function CtaButtons({Ordernowbtn_icon,
           className="flex justify-center items-center border-[2px] border-zinc-400 bg-zinc-100
     transition ease-in duration-200 delay-200 hover:scale-105 hover:shadow-lg py-2 px-4 rounded-lg  m-2"
         >
-          <Image src={Ordernowbtn_icon || "/fulfillment.png"} width={30} height={30} alt="order" />
+          <Image
+            src={Ordernowbtn_icon || "/fulfillment.png"}
+            width={30}
+            height={30}
+            alt="order"
+          />
           <button className="font-medium ml-2 text-zinc-800 md:text-base text-sm ">
-          {Ordernowbtn_title}
+            {Ordernowbtn_title}
           </button>
         </div>
       </Link>
 
       <Link
-        href={Chatonwhatsappbtn_link ||
+        href={
+          Chatonwhatsappbtn_link ||
           "https://wa.me/3197005034911?text=Hi, I urgently need academic assistance. Could you help me submit my assignment before the deadline?"
         }
         target="_blank"
@@ -130,7 +145,12 @@ export function CtaButtons({Ordernowbtn_icon,
           className="flex justify-center items-center border-[2px] bg-zinc-100 
 transition ease-in duration-200 delay-200 hover:scale-105 hover:shadow-lg py-[11px] px-4 rounded-lg m-2"
         >
-          <Image src={Chatonwhatsappbtn_icon || "/whatsapp.png"} width={25} height={25} alt="whatsapp" />
+          <Image
+            src={Chatonwhatsappbtn_icon || "/whatsapp.png"}
+            width={25}
+            height={25}
+            alt="whatsapp"
+          />
           <button className="font-medium ml-2 text-zinc-800  md:text-base text-sm">
             {Chatonwhatsappbtn_title}
           </button>

@@ -17,6 +17,9 @@ export async function GET() {
       return NextResponse.json({ error: `Pages not found` }, { status: 404 });
     }
 
+    console.log("`existingPages`:", existingPages);
+    
+
     return NextResponse.json({ data: existingPages }, { status: 200 });
   } catch (error: any) {
     console.error("Error duplicating page:", error.message);

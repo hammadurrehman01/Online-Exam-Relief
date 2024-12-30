@@ -45,22 +45,6 @@ const Page = () => {
 
   return (
     <AuthenticatedRoute>
-      {/* <button onClick={() => setNavModal(true)}>Add new page</button> */}
-      {/* <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select> */}
       <div className="grid w-full m-auto">
         {serviceModal && (
           <ServiceModal
@@ -84,11 +68,8 @@ const Page = () => {
             >
               Add new page
             </button>
-            <a href="https://builder.io/content">
-              <button
-                className=" bg-violet-800 p-3 rounded-md"
-                onClick={() => setServiceModal(true)}
-              >
+            <a href="https://builder.io/content" target="_blank">
+              <button className=" bg-violet-800 p-3 rounded-md">
                 Edit With Builder Studio
               </button>
             </a>

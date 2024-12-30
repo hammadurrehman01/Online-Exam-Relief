@@ -1,50 +1,71 @@
-import { AnimatedTestimonials } from '@/components/ui/animated-testimonials'
-import React from 'react'
+"use client";
 
-function EaTestimonials() {
-    const testimonials = [
-        {
-          quote:
-            "The support was incredible! Helped me ace my exams stress-free.",
-          name: "Sarah Johnson",
-          designation: "Final Year Student, Business Administration",
-          src: "/banner-1.webp",
-        },
-        {
-          quote:
-            "Exceptional guidance—made complex topics so simple",
-          name: "Michael Lee",
-          designation: "Graduate Student, Computer Science",
-          src: "/testimonial-2.jpg",
-        },
-        {
-          quote:
-            "Their tips and resources were a game-changer for my studies.",
-          name: "Maddison Beer",
-          designation: "Sophomore, Psychology",
-          src: "/testimonial-3.jpg",
-        },
-        {
-          quote:
-            "On-point assistance that boosted my confidence for the finals.",
-          name: "James Carter",
-          designation: "Senior, Mechanical Engineering",
-          src: "/banner-3.webp",
-        },
-        {
-          quote:
-            "I felt fully prepared and supported throughout exam season.",
-          name: "Elena Garcia",
-          designation: "Master's Student, Literature",
-          src: "/testimonial-1.png",
-        },
-      ];
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import React from "react";
+
+function EaTestimonials({
+  Main_heading,
+  Person_one_image,
+  Person_one_name,
+  Person_one_bio,
+  Title_one,
+  Person_two_image,
+  Person_two_name,
+  Person_two_bio,
+  Title_two,
+  Person_three_image,
+  Person_three_name,
+  Person_three_bio,
+  Title_three,
+  Person_four_image,
+  Person_four_name,
+  Person_four_bio,
+  Title_four,
+  Person_five_image,
+  Person_five_name,
+  Person_five_bio,
+  Title_five,
+}: any) {
+  const testimonials = [
+    {
+      quote: Title_one,
+      name: Person_one_name,
+      designation: Person_one_bio,
+      src: Person_one_image,
+    },
+    {
+      quote: Title_two,
+      name: Person_two_name,
+      designation: Person_two_bio,
+      src: Person_two_image,
+    },
+    {
+      quote: Title_three,
+      name: Person_three_name,
+      designation: Person_three_bio,
+      src: Person_three_image,
+    },
+    {
+      quote: Title_four,
+      name: Person_four_name,
+      designation: Person_four_bio,
+      src: Person_four_image,
+    },
+    {
+      quote: Title_five,
+      name: Person_five_name,
+      designation: Person_five_bio,
+      src: Person_five_image,
+    },
+  ];
   return (
-    <div className='mx-auto max-w-screen-xl mt-20 -z-[999]'>
-        <h2 className='text-center mt-5 font-bold text-3xl md:text-5xl'>Our Testimonials</h2>
-        <AnimatedTestimonials testimonials={testimonials} />
+    <div className="mx-auto max-w-screen-xl mt-20 -z-[999]">
+      <h2 className="text-center mt-5 font-bold text-3xl md:text-5xl">
+        {Main_heading}
+      </h2>
+      <AnimatedTestimonials testimonials={testimonials} />
     </div>
-  )
+  );
 }
 
-export default EaTestimonials
+export default EaTestimonials;

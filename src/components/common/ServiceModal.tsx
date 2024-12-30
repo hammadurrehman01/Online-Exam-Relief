@@ -182,7 +182,6 @@ export function ServiceModal({
       toast.error("The service already exists");
     } else {
       const updatedServices = [...services, service];
-      console.log("service ====>", service);
 
       setServices(updatedServices);
       localStorage.setItem("services", JSON.stringify(updatedServices));
@@ -223,6 +222,7 @@ export function ServiceModal({
     setServices(updatedServices);
     localStorage.setItem("services", JSON.stringify(updatedServices));
     toast.success("Subcategory added successfully!");
+    setServiceModal(false);
   };
 
   useEffect(() => {
@@ -231,7 +231,7 @@ export function ServiceModal({
 
   return (
     <Dialog open={serviceModal}>
-      <DialogContent className="sm:max-w-[475px] mt-8">
+      <DialogContent className="sm:max-w-[475px] mt-8 z-[9999999]">
         <DialogHeader>
           <DialogTitle>Add a new Page</DialogTitle>
         </DialogHeader>
@@ -301,7 +301,7 @@ export function ServiceModal({
               onValueChange={(value) => {
                 const selectedPage = JSON.parse(value);
                 setService({
-                  title: selectedPage?.name,
+                  category: selectedPage?.name,
                   href: selectedPage?.query[0]?.value,
                 });
               }}
@@ -310,9 +310,10 @@ export function ServiceModal({
                 <SelectValue placeholder="Select from existing pages" />
               </SelectTrigger>
 
-              <SelectContent className="h-[250px]">
+              <SelectContent className="h-[200px] z-[999999999]">
                 {existingPages.length === 0 ? (
                   <div className="w-full">
+                    dsadss
                     <LoaderCircle className="m-auto my-6  animate-spin" />
                   </div>
                 ) : (
@@ -398,7 +399,7 @@ export function ServiceModal({
                   <SelectValue placeholder="Select from existing categories" />
                 </SelectTrigger>
 
-                <SelectContent className="h-[200px]">
+                <SelectContent className="h-[200px] z-[999999999]">
                   {services.length === 0 ? (
                     <div className="w-full">
                       <LoaderCircle className="m-auto my-6  animate-spin" />

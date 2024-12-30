@@ -9,8 +9,16 @@ import { DatePickerDemo } from "@/components/ui/datepicker";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { TypewriterEffectSmoothDemo } from "./TypeWriterForm";
 
-function BannerForm({Formtopbar,
-  Formheading,}:any) {
+function BannerForm({
+  Formtopbar,
+  Form_heading_word_one,
+  Form_heading_word_two,
+  Form_heading_word_three,
+  Form_heading_word_four,
+  Form_heading_word_five,
+  Form_heading_word_six,
+  Form_button,
+}: any) {
   const [date, setDate] = React.useState<Date>();
   const [activeButton, setActiveButton] = useState<string | null>("writing");
   const [wordCount, setWordCount] = useState<number>(250);
@@ -94,7 +102,7 @@ function BannerForm({Formtopbar,
       const formData = convertToFormData(data);
       const response = await sendEmails(formData); // Assume sendEmails is a server action
       if (response?.success) {
-        localStorage.removeItem("discount")
+        localStorage.removeItem("discount");
         router.push("/thanks");
       }
     } catch (error) {
@@ -105,48 +113,55 @@ function BannerForm({Formtopbar,
   return (
     <form onSubmit={handleSubmit}>
       <div className="xl:ml-28 pb-16 bg-muted shadow-md rounded-xl lg:w-[480px] dark:bg-zinc-900 transition-all duration-300 hover:shadow-2xl hover:border-blue-500 hover:scale-[1.02] border-2 border-transparent">
-       
-
         <div className="flex justify-center items-center lg:-translate-y-4 -translate-y-4">
-        <HoverBorderGradient
-        containerClassName="rounded-full"
-        as="button"
-        className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
-      >
-        <span>{Formtopbar}</span>
-      </HoverBorderGradient>
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="button"
+            className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
+          >
+            <span>{Formtopbar}</span>
+          </HoverBorderGradient>
         </div>
         <div className="flex justify-center  ">
-          <TypewriterEffectSmoothDemo/>
-          
+          <TypewriterEffectSmoothDemo
+            Form_heading_word_one={Form_heading_word_one}
+            Form_heading_word_two={Form_heading_word_two}
+            Form_heading_word_three={Form_heading_word_three}
+            Form_heading_word_four={Form_heading_word_four}
+            Form_heading_word_six={Form_heading_word_six}
+            Form_heading_word_five={Form_heading_word_five}
+          />
         </div>
         <div className="flex justify-center items-center ">
           <button
             type="button"
-            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px] rounded rounded-tl-lg rounded-bl-lg ${activeButton === "writing"
+            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px] rounded rounded-tl-lg rounded-bl-lg ${
+              activeButton === "writing"
                 ? "bg-blue-600 text-white"
                 : " bg-zinc-200 text-zinc-800"
-              }`}
+            }`}
             onClick={() => handleClick("writing")}
           >
             Writing
           </button>
           <button
             type="button"
-            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px] ${activeButton === "rewriting"
+            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px] ${
+              activeButton === "rewriting"
                 ? "bg-blue-600 text-white"
                 : "bg-zinc-200 text-zinc-800"
-              }`}
+            }`}
             onClick={() => handleClick("rewriting")}
           >
             Rewriting
           </button>
           <button
             type="button"
-            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px]  rounded rounded-tr-lg rounded-br-lg  ${activeButton === "editing"
+            className={`px-5 py-3 md:text-base text-sm transition ease-in duration-200 delay-200 border-[2px]  rounded rounded-tr-lg rounded-br-lg  ${
+              activeButton === "editing"
                 ? "bg-blue-600 text-white"
                 : "bg-zinc-200 text-zinc-800"
-              }`}
+            }`}
             onClick={() => handleClick("editing")}
           >
             Editing
@@ -338,10 +353,10 @@ function BannerForm({Formtopbar,
 
         <div className="flex justify-center items-center mt-5">
           <button
-          type="submit"
+            type="submit"
             disabled={pending}
             className={`relative w-2/4 bg-gradient-to-br from-[#00b4d8] via-[#4361ee] to-[#023047] transition ease-in duration-200 delay-200 text-white text-base rounded-full py-3 overflow-hidden group 
-      ${pending ? 'opacity-70 cursor-not-allowed' : ''}`}
+      ${pending ? "opacity-70 cursor-not-allowed" : ""}`}
           >
             <span className="relative flex items-center justify-center">
               {pending ? (
@@ -351,8 +366,8 @@ function BannerForm({Formtopbar,
                 </>
               ) : (
                 <>
-                  <span className='relative flex items-center justify-center'>
-                    Get Free Quote
+                  <span className="relative flex items-center justify-center">
+                    {Form_button}
                     <span className="absolute left-full  transition-transform duration-500 ease-in-out transform group-hover:rotate-180 text-base ml-1">
                       <ArrowLeftCircle />
                     </span>
@@ -368,5 +383,3 @@ function BannerForm({Formtopbar,
 }
 
 export default BannerForm;
-
-

@@ -111,10 +111,10 @@ export const TypewriterEffectSmooth = ({
   cursorClassName?: string;
 }) => {
   // split text inside of words into array of characters
-  const wordsArray = words.map((word) => {
+  const wordsArray = words?.map((word) => {
     return {
       ...word,
-      text: word.text.split(""),
+      text: word?.text?.split(""),
     };
   });
   const renderWords = () => {
@@ -123,7 +123,7 @@ export const TypewriterEffectSmooth = ({
         {wordsArray.map((word, idx) => {
           return (
             <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
+              {word?.text?.map((char, index) => (
                 <span
                   key={`char-${index}`}
                   className={cn(`dark:text-white text-black `, word.className)}

@@ -5,6 +5,9 @@ import Navbar from "./(Home)/Navbar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Footer from "./(Home)/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
+import TopBar from "./(Home)/Topbar";
+import TawkTo from "@/lib/TawkTo";
+import { getContent } from "@/lib/getContent";
 // import "react-toastify/dist/ReactToastify.css";
 
 const inter = Outfit({
@@ -28,11 +31,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content = await getContent();
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -42,8 +47,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <TopBar />
+
           <Navbar />
           <ToastContainer
+            className="z-[999999]"
             position="top-right"
             autoClose={3000}
             hideProgressBar={false}
@@ -58,6 +66,7 @@ export default function RootLayout({
           />
           {children}
           <Footer />
+          <TawkTo tawkToScript={content.data.tawkToScript} />
         </ThemeProvider>
       </body>
     </html>

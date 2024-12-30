@@ -2,28 +2,46 @@
 
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
-export function TypewriterEffectSmoothDemo() {
+export function TypewriterEffectSmoothDemo({
+  Form_heading_word_one,
+  Form_heading_word_two,
+  Form_heading_word_three,
+  Form_heading_word_four,
+  Form_heading_word_five,
+  Form_heading_word_six,
+}: any) {
   const words = [
     {
-      text: "Receive",
+      text: Form_heading_word_one,
     },
     {
-      text: "Assistance",
+      text: Form_heading_word_two,
     },
     {
-      text: "From Our",
+      text: Form_heading_word_three,
     },
     {
-      text: "Skilled",
+      text: Form_heading_word_four,
     },
     {
-      text: "Experts",
+      text: Form_heading_word_five,
+    },
+    {
+      text: Form_heading_word_six,
       className: "text-blue-500 dark:text-blue-400",
     },
   ];
+  console.log({
+    Form_heading_word_one,
+    Form_heading_word_two,
+    Form_heading_word_three,
+    Form_heading_word_four,
+    Form_heading_word_five,
+    Form_heading_word_six,
+  });
+
   return (
     <div className=" ">
-   
       <TypewriterEffectSmooth words={words} />
       {/* <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
