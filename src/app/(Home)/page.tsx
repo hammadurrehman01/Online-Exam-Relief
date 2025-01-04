@@ -1,46 +1,50 @@
 import { builder } from "@builder.io/sdk";
 import "aos/dist/aos.css";
-import { HomeComps } from "./HomeComps";
+import { Metadata } from "next";
 import Banner from "./Banner";
-import Solutions from "./Solutions";
-import KnowUs from "./KnowUs";
 import Divider from "./Divider";
-import OurServices from "./OurServices";
-import WorkProcess from "./WorkProcess";
 import Faq from "./Faq";
+import { HomeComps } from "./HomeComps";
+import KnowUs from "./KnowUs";
+import OurServices from "./OurServices";
+import Solutions from "./Solutions";
 import Testimonials from "./Testimonials";
+import WorkProcess from "./WorkProcess";
 
-// export const generateMetadata = async (): Promise<Metadata> => {
-//   const content = await builder
-//     .get("homepage", {
-//       userAttributes: {
-//         urlPath: "/",
-//       },
-//       apiKey: "3021e7c2623e453297ba70ab561879f3",
-//     })
-//     .toPromise();
+export const generateMetadata = async (): Promise<Metadata> => {
+  const content = await builder
+    .get("homepage", {
+      userAttributes: {
+        urlPath: "/",
+      },
+      cache: false,
+      cacheSeconds: 1,
+      cachebust: true,
+      apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
+    })
+    .toPromise();
 
-//   return {
-//     title: content?.data?.metatitle || "Default Title",
-//     description: content?.data?.metadescription || "Default Description",
-//     alternates: {
-//       canonical: content?.data?.canonical || "Default Canonical",
-//     },
-//     robots: {
-//       index: content?.data?.robots?.index,
-//       follow: content?.data?.robots?.follow,
-//       nocache: content?.data?.robots?.nocache,
-//       googleBot: {
-//         index: content?.data?.robots?.googleBot.index,
-//         follow: content?.data?.robots?.googleBot.follow,
-//         noimageindex: content?.data?.robots?.googleBot.noimageindex,
-//         "max-video-preview": -1,
-//         "max-image-preview": "large",
-//         "max-snippet": -1,
-//       },
-//     },
-//   };
-// };
+  return {
+    title: content?.data?.metatitle || "Default Title",
+    description: content?.data?.metadescription || "Default Description",
+    alternates: {
+      canonical: content?.data?.canonical || "Default Canonical",
+    },
+    robots: {
+      index: content?.data?.robots?.index,
+      follow: content?.data?.robots?.follow,
+      nocache: content?.data?.robots?.nocache,
+      googleBot: {
+        index: content?.data?.robots?.googleBot.index,
+        follow: content?.data?.robots?.googleBot.follow,
+        noimageindex: content?.data?.robots?.googleBot.noimageindex,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
+};
 
 const Page = async () => {
   const content = await builder
@@ -120,7 +124,27 @@ const Page = async () => {
           type: "string",
         },
         {
-          name: "Formheading",
+          name: "Form_heading_word_one",
+          type: "string",
+        },
+        {
+          name: "Form_heading_word_two",
+          type: "string",
+        },
+        {
+          name: "Form_heading_word_three",
+          type: "string",
+        },
+        {
+          name: "Form_heading_word_four",
+          type: "string",
+        },
+        {
+          name: "Form_heading_word_five",
+          type: "string",
+        },
+        {
+          name: "Form_heading_word_six",
           type: "string",
         },
         {
@@ -560,7 +584,7 @@ const Page = async () => {
           __html: JSON.stringify(content.data.organizationschema),
         }}
       />
-      <script
+      <script 
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(content.data.websiteschema),

@@ -63,6 +63,8 @@ const Page = () => {
                 setEmail(e.target.value);
               }}
               value={email}
+              className="border-[0.5px] border-gray-700"
+
               type="email"
               placeholder="Enter Email"
             />
@@ -71,7 +73,7 @@ const Page = () => {
                 setPassword(e.target.value);
               }}
               value={password}
-              className="mt-2"
+              className="mt-2 border-[0.5px] border-gray-700"
               type="password"
               placeholder="Enter Password"
             />

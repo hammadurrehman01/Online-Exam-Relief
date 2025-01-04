@@ -1,6 +1,7 @@
 "use client";
 import { builder, Builder } from "@builder.io/react";
 import Banner from "./app/(Home)/Banner";
+import BlogCard from "./components/BlogsCard";
 import Counter from "./components/Counter/Counter";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -50,7 +51,6 @@ Builder.registerComponent(Banner, {
       name: "Bullet3_title",
       type: "string",
     },
-
     {
       name: "Ordernowbtn_icon",
       type: "file",
@@ -110,6 +110,16 @@ Builder.registerComponent(Banner, {
     {
       name: "Canonical",
       type: "string",
+    },
+  ],
+});
+
+Builder.registerComponent(BlogCard, {
+  name: "BlogCard",
+  inputs: [
+    {
+      name: "categories",
+      type: "boolean",
     },
   ],
 });

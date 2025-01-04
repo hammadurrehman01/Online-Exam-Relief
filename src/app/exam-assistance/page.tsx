@@ -13,6 +13,8 @@ import EaNumbers from "./EaNumbers";
 import EaTestimonials from "./EaTestimonials";
 import EaFaq from "./EaFaq";
 
+builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
+
 const Page = async () => {
   const content = await builder
     .get("category", {
@@ -20,6 +22,9 @@ const Page = async () => {
       userAttributes: {
         urlPath: "/exam-assistance",
       },
+      cache: false,
+      cacheSeconds: 1,
+      cachebust: true,
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
     })
     .toPromise();
@@ -717,13 +722,15 @@ const Page = async () => {
     // <EaTestimonials/>
     // <EaFaq/>
     // </div>
-    <RenderBuilderContent
-      model="category"
-      content={content}
-      apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
-      options={{ includeRefs: true }}
-      customComponents={customComponents}
-    />
+    <div>
+      <RenderBuilderContent
+        model="category"
+        content={content}
+        apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
+        options={{ includeRefs: true }}
+        customComponents={customComponents}
+      />
+    </div>
   );
 };
 

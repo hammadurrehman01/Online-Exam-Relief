@@ -19,7 +19,13 @@ function Banner({
   Chatonwhatsappbtn_title,
   Chatonwhatsappbtn_link,
   Formtopbar,
-  Formheading,
+  Form_heading_word_one,
+  Form_heading_word_two,
+  Form_heading_word_three,
+  Form_heading_word_four,
+  Form_heading_word_five,
+  Form_heading_word_six,
+  Formbutton,
 }: any) {
   return (
     <section className="relative overflow-hidden">
@@ -95,7 +101,16 @@ function Banner({
           </div>
 
           <div className="pb-5 px-5 pt-12  ">
-            <BannerForm Formtopbar={Formtopbar} Formheading={Formheading} />
+            <BannerForm
+            Formtopbar={Formtopbar}
+              Form_heading_word_one={Form_heading_word_one}
+              Form_heading_word_two={Form_heading_word_two}
+              Form_heading_word_three={Form_heading_word_three}
+              Form_heading_word_four={Form_heading_word_four}
+              Form_heading_word_five={Form_heading_word_five}
+              Form_heading_word_six={Form_heading_word_six}
+              Formbutton={Formbutton}
+            />
           </div>
         </div>
       </div>

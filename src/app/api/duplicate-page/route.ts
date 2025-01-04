@@ -3,14 +3,18 @@ import { builder } from "@builder.io/sdk";
 
 export async function POST(req: any) {
   try {
-    const { category, newSlug } = await req.json();
+    const { category, newSlug, selectedCategory } = await req.json();
 
     const existingSlug = "/";
 
     // Fetch the existing page content by its slug
     const existingPage = await builder
-      .get("homepage", {
-        url: "/",
+      .get(`${selectedCategory ? "subcategory" : "category"}`, {
+        url: `${
+          selectedCategory
+            ? "/exam-assistance/timed-test-support"
+            : "/exam-assistance"
+        }`,
         apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
       })
       .promise();
@@ -22,10 +26,13 @@ export async function POST(req: any) {
       );
     }
 
-    const existingPages = await builder.getAll("homepage", {
-      url: newSlug,
-      apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
-    });
+    const existingPages = await builder.getAll(
+      `${selectedCategory ? "subcategory" : "category"}`,
+      {
+        url: newSlug,
+        apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
+      }
+    );
 
     if (existingPages.length !== 0) {
       return NextResponse.json(
@@ -35,28 +42,35 @@ export async function POST(req: any) {
     }
 
     // Use Builder.io REST API to create the new page
-    const response = await fetch("https://builder.io/api/v1/write/homepage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer bpk-902f967183a149c1924441535ca074ac`,
-      },
-      body: JSON.stringify({
-        name: category,
-        published: "published",
-        query: [
-          {
-            "@type": "@builder.io/core:Query",
-            property: "urlPath",
-            operator: "is",
-            value: newSlug,
-          },
-        ],
-        data: {
-          blocks: existingPage.data.blocks,
+    const response = await fetch(
+      `${
+        selectedCategory
+          ? "https://builder.io/api/v1/write/subcategory"
+          : "https://builder.io/api/v1/write/category"
+      }`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer bpk-902f967183a149c1924441535ca074ac`,
         },
-      }),
-    });
+        body: JSON.stringify({
+          name: category,
+          published: "published",
+          query: [
+            {
+              "@type": "@builder.io/core:Query",
+              property: "urlPath",
+              operator: "is",
+              value: newSlug,
+            },
+          ],
+          data: {
+            blocks: existingPage.data.blocks,
+          },
+        }),
+      }
+    );
 
     const data = await response.json();
 

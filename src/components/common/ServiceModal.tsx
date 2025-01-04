@@ -205,24 +205,94 @@ export function ServiceModal({
     localStorage.setItem("services", JSON.stringify(updatedServices));
   };
 
-  const AddSubCategory = async () => {
-    const updatedServices = services.map((service: any) => {
-      if (service.href === selectedCategory.href) {
-        const updatedSubcategories = service.subcategories
-          ? [
-              ...service.subcategories,
-              { name: subCategory, href: `${service.href}${slug}` },
-            ]
-          : [{ name: subCategory, href: slug }];
-        return { ...service, subcategories: updatedSubcategories };
-      }
-      return service;
-    });
+  // const AddSubCategory = async () => {
+  //   const response = await fetch("/api/duplicate-page", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       category: subCategory,
+  //       newSlug: `/${slug.replaceAll(" ", "-")}`,
+  //     }),
+  //   });
+  //   const data = await response.json();
+  //   if (response.ok) {
+  //     const updatedServices = services.map((service: any) => {
+  //       if (service.href === selectedCategory.href) {
+  //         const updatedSubcategories = service.subcategories
+  //           ? [
+  //               ...service.subcategories,
+  //               { name: subCategory, href: `${service.href}${slug}` },
+  //             ]
+  //           : [{ name: subCategory, href: slug }];
+  //         return { ...service, subcategories: updatedSubcategories };
+  //       }
+  //       return service;
+  //     });
+  //     setServices(updatedServices);
+  //     localStorage.setItem("services", JSON.stringify(updatedServices));
+  //     toast.success("Subcategory added successfully!");
+  //     setServiceModal(false);
+  //   } else {
+  //     toast.error(data.message);
+  //   }
+  // };
 
-    setServices(updatedServices);
-    localStorage.setItem("services", JSON.stringify(updatedServices));
-    toast.success("Subcategory added successfully!");
-    setServiceModal(false);
+  const AddSubCategory = async () => {
+    try {
+      // Validate required fields
+      if (!subCategory || !slug || !selectedCategory) {
+        toast.error("Please provide all required fields.");
+        return;
+      }
+
+      // API call
+      const response = await fetch("/api/duplicate-page", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: subCategory,
+          newSlug: '/exam-assistance/timed-test-support',
+          selectedCategory,
+        }),
+      });
+
+      // Parse response
+      const data = await response.json();
+
+      if (response.ok) {
+        // Update services state
+        const updatedServices = services.map((service: any) => {
+          if (service.href === selectedCategory.href) {
+            return {
+              ...service,
+              subcategories: [
+                ...(service.subcategories || []), // Default to empty array if undefined
+                {
+                  name: subCategory,
+                  href: `${service.href}/${slug.replaceAll(" ", "-")}`,
+                },
+              ],
+            };
+          }
+          return service;
+        });
+
+        // Update state and localStorage
+        setServices(updatedServices);
+        localStorage.setItem("services", JSON.stringify(updatedServices));
+
+        // Success notification and cleanup
+        toast.success("Subcategory added successfully!");
+        setServiceModal(false);
+      } else {
+        // Handle API errors
+        toast.error(data.message || "Failed to add subcategory.");
+      }
+    } catch (error) {
+      // General error handling
+      console.error("Error adding subcategory:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -246,7 +316,7 @@ export function ServiceModal({
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 border-[0.5px] border-gray-700"
                 placeholder="Take My Exam"
               />
             </div>
@@ -258,7 +328,7 @@ export function ServiceModal({
                 id="href"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 border-[0.5px] border-gray-700"
                 placeholder="/take-my-exam"
               />
             </div>{" "}

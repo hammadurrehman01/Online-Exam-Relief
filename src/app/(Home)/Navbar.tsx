@@ -21,6 +21,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about-us", label: "About" },
   { href: "/contact-us", label: "Contact" },
+  { href: "/blogs", label: "Blogs" },
   { href: "/order-now", label: "Order Now" },
 ];
 
@@ -33,12 +34,7 @@ function Navbar() {
         <div className="flex justify-between py-2">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image
-                src={"/logo (1).png"}
-                width={200}
-                height={200}
-                alt="logo"
-              />
+              <Image src={"/logo (1).png"} width={200} height={60} alt="logo" />
             </Link>
           </div>
           <div className="hidden md:flex items-center justify-center flex-1 gap-2">

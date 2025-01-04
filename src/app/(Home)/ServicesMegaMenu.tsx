@@ -6,9 +6,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const defaultServices = [
@@ -102,22 +102,19 @@ function ServicesMegaMenu() {
   useEffect(() => {
     const storedServices = JSON.parse(localStorage.getItem("services") || "[]");
 
-    // const mergedServices = [
-    //   ...defaultServices,
-    //   ...storedServices.filter(
-    //     (storedService: any) =>
-    //       !defaultServices.some(
-    //         (defaultService) =>
-    //           defaultService.category === storedService.category
-    //       )
-    //   ),
-    // ];
+    const mergedServices = [
+      ...defaultServices,
+      ...storedServices.filter(
+        (storedService: any) =>
+          !defaultServices.some(
+            (defaultService) =>
+              defaultService.category === storedService.category
+          )
+      ),
+    ];
 
-    setServices(storedServices);
+    setServices(mergedServices);
   }, []);
-
-  console.log("services ===>", services);
-  
 
   return (
     <NavigationMenu>

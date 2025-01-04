@@ -17,7 +17,7 @@ function BannerForm({
   Form_heading_word_four,
   Form_heading_word_five,
   Form_heading_word_six,
-  Form_button,
+  Formbutton,
 }: any) {
   const [date, setDate] = React.useState<Date>();
   const [activeButton, setActiveButton] = useState<string | null>("writing");
@@ -28,9 +28,8 @@ function BannerForm({
   const [showSubject, setShowSubject] = useState<boolean>(false);
   const [showQuestions, setShowQuestions] = useState<boolean>(false);
   const [pending, setPending] = useState(false);
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
-  // New state for form data
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<any>("");
@@ -67,7 +66,6 @@ function BannerForm({
     setShowQuestions(value === "Question And Answers");
   };
 
-  // Form submit handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
@@ -100,7 +98,7 @@ function BannerForm({
 
     try {
       const formData = convertToFormData(data);
-      const response = await sendEmails(formData); // Assume sendEmails is a server action
+      const response = await sendEmails(formData);
       if (response?.success) {
         localStorage.removeItem("discount");
         router.push("/thanks");
@@ -367,7 +365,7 @@ function BannerForm({
               ) : (
                 <>
                   <span className="relative flex items-center justify-center">
-                    {Form_button}
+                    {Formbutton}
                     <span className="absolute left-full  transition-transform duration-500 ease-in-out transform group-hover:rotate-180 text-base ml-1">
                       <ArrowLeftCircle />
                     </span>

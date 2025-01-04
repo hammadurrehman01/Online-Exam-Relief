@@ -31,14 +31,7 @@ export function TypewriterEffectSmoothDemo({
       className: "text-blue-500 dark:text-blue-400",
     },
   ];
-  console.log({
-    Form_heading_word_one,
-    Form_heading_word_two,
-    Form_heading_word_three,
-    Form_heading_word_four,
-    Form_heading_word_five,
-    Form_heading_word_six,
-  });
+
 
   return (
     <div className=" ">
