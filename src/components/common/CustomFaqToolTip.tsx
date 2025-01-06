@@ -21,39 +21,42 @@ const CustomFaqToolTip = ({
   index,
   modal,
   setModal,
+  targetedQuestion,
 }: any) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [updateQuestion, setUpdateQuestion] = useState("");
+  const [updateAnswer, setUpdateAnswer] = useState("");
 
-  const handleEditSample = () => {
-    //   const sampleToEdit = faqs[index];
+  const handleEditFaq = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/faq/update-faq", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          updateQuestion,
+          updateAnswer,
+          question,
+          answer,
+        }),
+      });
 
-    //   setQuestion(sampleToEdit.title);
-    //   setAnswer(sampleToEdit.description);
-    //   setIsEditing(true);
-    //   setModal(true);
-    console.log("dsa");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update FAQ");
+      }
+
+      const data = await response.json();
+      toast.success("FAQ updated successfully!");
+      resetFields();
+    } catch (error: any) {
+      console.error("Error updating FAQ:", error.message);
+      toast.error(error.message || "An error occurred");
+    }
   };
-
-  const handleSaveEdit = () => {
-    //   const updatedSamples = faqs.map((sample: any, i: number) =>
-    //     i === index
-    //       ? {
-    //           title,
-    //           description,
-    //         }
-    //       : sample
-    //   );
-
-    //   setFaqs(updatedSamples);
-    //   localStorage.setItem("samples", JSON.stringify(updatedSamples));
-    //   resetFields();
-    console.log("sdsa");
-  };
-
   const handleAddSample = async () => {
     setIsLoading(true);
 
@@ -66,10 +69,8 @@ const CustomFaqToolTip = ({
         });
 
         resetFields();
-
         const data = await response.json();
-        console.log("data ==> ", data);
-
+        setFaqs(data.faqs);
         toast.success("Faq added successfully");
       } else {
         toast.error("Please add the input");
@@ -80,12 +81,54 @@ const CustomFaqToolTip = ({
     }
   };
 
-  const handleDeleteSample = () => {
-    // const updatedSamples = samples.filter((_: any, i: number) => i !== index);
-    // setSamples(updatedSamples);
-    // localStorage.setItem("samples", JSON.stringify(updatedSamples));
-    // setTooltipIndex(null);
-    console.log("dsad");
+  const handleDeleteSample = async () => {
+    try {
+      const response = await fetch("/api/faq/delete-faq", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetedQuestion }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete FAQ");
+      }
+
+      const data = await response.json();
+      toast.success("FAQ deleted successfully!");
+      setTooltipIndex(null);
+      setFaqs(data.faqs);
+    } catch (error: any) {
+      console.error("Error deleting FAQ:", error.message);
+      toast.error(error.message || "An error occurred");
+    }
+  };
+
+  const fetchFaqByQuestion = async (targetedQuestion: string) => {
+    setModal(true);
+    setIsEditing(true);
+    try {
+      const response = await fetch(
+        `/api/faq/get-faq?question=${encodeURIComponent(targetedQuestion)}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to fetch FAQ");
+      }
+
+      const data = await response.json();
+
+      setUpdateQuestion(data.faq.question);
+      setUpdateAnswer(data.faq.answer);
+      setFaqs(faqs);
+    } catch (error: any) {
+      console.error("Error fetching FAQ:", error.message);
+      toast.error(error.message || "An error occurred");
+    }
   };
 
   const resetFields = () => {
@@ -97,8 +140,11 @@ const CustomFaqToolTip = ({
   };
 
   return (
-    <div className="absolute top-20 right-32 x-2 py-1 px-3 rounded cursor-pointer bg-black">
-      <p onClick={handleEditSample} className="text-center py-1">
+    <div className="absolute  -top-14 right-8 py-1 px-3 rounded cursor-pointer bg-black">
+      <p
+        onClick={() => fetchFaqByQuestion(targetedQuestion)}
+        className="text-center py-1"
+      >
         Edit
       </p>
       <p onClick={handleDeleteSample} className="text-center py-1">
@@ -127,7 +173,7 @@ const CustomFaqToolTip = ({
               <Input
                 className="border-[0.5px]"
                 id="question"
-                value={question}
+                value={question || updateQuestion}
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Enter faq question"
               />
@@ -139,7 +185,7 @@ const CustomFaqToolTip = ({
               <Input
                 className="border-[0.5px]"
                 id="answer"
-                value={answer}
+                value={answer || updateAnswer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Enter faq answer"
               />
@@ -148,7 +194,7 @@ const CustomFaqToolTip = ({
 
           <DialogFooter>
             <Button
-              onClick={isEditing ? handleSaveEdit : handleAddSample}
+              onClick={isEditing ? () => handleEditFaq() : handleAddSample}
               className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
             >
               {isEditing ? (

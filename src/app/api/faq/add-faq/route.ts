@@ -25,13 +25,11 @@ export async function POST(request: Request) {
 
     const newFaq = { question, answer };
     faqs.push(newFaq);
-    console.log("faqs ==> ", faqs);
-    
 
     fs.writeFileSync(filePath, JSON.stringify(faqs, null, 2), "utf-8");
 
     return NextResponse.json(
-      { message: "FAQ added successfully", faq: newFaq },
+      { message: "FAQ added successfully", faqs },
       { status: 201 }
     );
   } catch (error) {

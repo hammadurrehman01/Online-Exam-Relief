@@ -32,14 +32,12 @@ any) {
   }, []);
 
   return (
-    <>
-      <RenderBuilderContent
-        model="homepage"
-        content={response}
-        apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
-        options={{ includeRefs: true }}
-        customComponents={customComponents}
-      />
-    </>
+    <RenderBuilderContent
+      model="homepage"
+      content={response}
+      apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
+      options={{ includeRefs: true }}
+      customComponents={customComponents}
+    />
   );
 });
