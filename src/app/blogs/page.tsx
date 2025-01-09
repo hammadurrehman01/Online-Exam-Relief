@@ -1,133 +1,42 @@
-import { Metadata } from "next";
 import Head from "next/head";
+import { Metadata } from "next";
 import Blogs from "./Blogs";
-import { RenderBuilderContent } from "@/components/builder";
-import { builder } from "@builder.io/sdk";
-import BlogCard from "@/components/BlogsCard";
-import { getBlogs } from "@/lib/getContent";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blogs",
   description: `All Blogs`,
   alternates: {
-    canonical: "https://www.takingmyclassesonline.com/blogs",
+    canonical: "https://techdept.mmecloud.tech/blogs",
   },
 };
 
 const Page = async () => {
-  <Head>
-    <title>Blogs</title>
-  </Head>;
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
-  const content = await getBlogs();
-
-  if (!content) {
-    console.error("Blog data is null. Rendering fallback UI.");
-    return <div>Failed to load data. Please try again later.</div>;
+  let content = [];
+  try {
+    const response = await fetch(`${baseUrl}/api/get-all-blogs`, {
+      cache: "reload",
+    }); // `force-cache` for ISR
+    if (!response.ok) throw new Error("Failed to fetch blogs");
+    content = await response.json();
+    console.log("response", content)
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
   }
 
-  const customComponents: any = [
-    {
-      component: BlogCard,
-      name: "BlogCard",
-      inputs: [
-        {
-          name: "title",
-          type: "text",
-        },
-        {
-          name: "description",
-          type: "html",
-        },
-        {
-          name: "blog_featured_image",
-          type: "file",
-        },
-        {
-          name: "blog_featured_image_alt",
-          type: "text",
-        },
-        {
-          name: "blog_categories",
-          type: "list",
-          // defaultValue: [{ category: "hello" }],
-          subFields: [
-            {
-              name: "category",
-              type: "string",
-              defaultValue: "Home",
-            },
-          ],
-        },
-        {
-          name: "blog_tags",
-          type: "Tags",
-        },
-        {
-          name: "blog_slug",
-          type: "text",
-        },
-        {
-          name: "blog_meta_title",
-          type: "text",
-        },
-        {
-          name: "blog_meta_description",
-          type: "text",
-        },
-        {
-          name: "blog_author_name",
-          type: "text",
-        },
-        {
-          name: "blog_author_bio",
-          type: "text",
-        },
-        {
-          name: "blog_author_gravatar",
-          type: "file",
-        },
-        {
-          name: "blog_posted_date",
-          type: "timestamp",
-        },
-        {
-          name: "custom_schema",
-          type: "json",
-        },
-        // {
-        //   name: "faqs",
-        //   type: "object",
-        //   subFields: [
-        //     {
-        //       name: "question",
-        //       type: "text",
-        //     },
-        //   ],
-        // },
-        {
-          name: "faqs",
-          type: "list",
-          subFields: [
-            {
-              name: "title",
-              type: "string",
-              defaultValue: "Home",
-            },
-            {
-              name: "description",
-              type: "string",
-              defaultValue: "Home",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  if (!content || content.length === 0) {
+    console.error("Blog data is null or empty. Rendering fallback UI.");
+    return <div>Failed to load data. Please try again later.</div>;
+  }
 
   return (
     <>
       <Head>
+        <title>Blogs</title>
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Blogs" />
@@ -172,7 +81,7 @@ const Page = async () => {
         <meta name="twitter:label1" content="Time to read" />
         <meta name="twitter:data1" content="51 minutes" />
       </Head>
-      <Blogs content={content} customComponents={customComponents} />
+      <Blogs content={content} />
     </>
   );
 };

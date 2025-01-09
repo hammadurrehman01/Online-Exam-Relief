@@ -1,6 +1,8 @@
+"use client";
+
 import Head from "next/head";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type SocialShareProps = {
   imageUrl?: string;
@@ -9,14 +11,19 @@ type SocialShareProps = {
 };
 
 const SocialShare = ({ imageUrl, title, description }: SocialShareProps) => {
-  const pathname = usePathname() || "/"; // Default to "/" if pathname is undefined
-  const BASE_URL = "https://techdept.mmecloud.tech";
+  const pathname = usePathname() || "/";
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    const BASE_URL = window.location.href;
+    setUrl(BASE_URL);
+  }, []);
 
   const shareLinks = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${BASE_URL}${pathname}`,
-    linkedIn: `https://www.linkedin.com/sharing/share-offsite/?url=${BASE_URL}${pathname}`,
-    twitter: `https://twitter.com/share?url=${BASE_URL}${pathname}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${BASE_URL}${pathname}&media=${imageUrl}&description=${description}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}${pathname}`,
+    linkedIn: `https://www.linkedin.com/sharing/share-offsite/?url=${url}${pathname}`,
+    twitter: `https://twitter.com/share?url=${url}${pathname}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${url}${pathname}&media=${imageUrl}&description=${description}`,
   };
 
   return (
@@ -27,7 +34,7 @@ const SocialShare = ({ imageUrl, title, description }: SocialShareProps) => {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={imageUrl} />
-        <meta property="og:url" content={`${BASE_URL}${pathname}`} />
+        <meta property="og:url" content={`${url}${pathname}`} />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />

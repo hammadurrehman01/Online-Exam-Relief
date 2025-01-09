@@ -7,8 +7,7 @@ import Footer from "./(Home)/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
 import TopBar from "./(Home)/Topbar";
 import TawkTo from "@/lib/TawkTo";
-import { getContent } from "@/lib/getContent";
-// import "react-toastify/dist/ReactToastify.css";
+import { getHomeData } from "@/lib/services";
 
 const inter = Outfit({
   subsets: ["latin"],
@@ -36,7 +35,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const content = await getContent();
+  const content = await getHomeData();
 
   return (
     <html lang="en">

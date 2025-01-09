@@ -17,9 +17,6 @@ export async function GET(request: Request) {
       );
     }
 
-    console.log("targetedQuestion", targetedQuestion);
-    
-
     const fileData = fs.readFileSync(filePath, "utf-8");
     const faqs = JSON.parse(fileData);
 

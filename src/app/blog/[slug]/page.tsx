@@ -1,53 +1,134 @@
-import { getBlogs } from "@/lib/getContent";
+export const dynamic = "force-dynamic";
+import { RenderBuilderContent } from "@/components/builder";
+import { getSingleBlog } from "@/lib/services";
 import BlogDetails from "../BlogDetails";
 import { Metadata } from "next";
 
-// export const generateMetadata = async ({
-//   params,
-// }: {
-//   params: { slug: string };
-// }): Promise<Metadata> => {
-//   const response = await fetch(
-//     `https://blogs.takingmyclassesonline.com/wp-json/custom-blog-api/v1/blog/${params.slug}`,
-//     {
-//       headers: {
-//         Authorization: `Bearer 347f7627d6c4765cf911391a34a3319e2140859fbc723ebefeb4f2f39d8a1d67`,
-//       },
-//     }
-//   );
-//   const blog = await response.json();
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> => {
+  const contentArray = await getSingleBlog();
+  const content: any = contentArray.find(
+    (blog: any) => blog?.data.url === `/blog/${params.slug}`
+  );
 
-//   return {
-//     title: blog.blog_title || "Blog",
-//     description: blog.blog_meta_description || "Read this amazing blog!",
-//     alternates: {
-//       canonical: `https://www.takingmyclassesonline.com/blog/${blog.blog_slug}`,
-//     },
-//     openGraph: {
-//       title: blog.blog_meta_title,
-//       description: blog.blog_meta_description,
-//       images: [blog.blog_featured_image_url],
-//       url: `https://www.takingmyclassesonline.com/blog/${blog.blog_slug}`,
-//     },
-//   };
-// };
+  return {
+    title: content?.data?.blocks[0]?.component?.options.blog_meta_title || "Blog",
+    description: content?.data?.blocks[0]?.component?.options.blog_meta_description || "Read this amazing blog!",
+    alternates: {
+      canonical: `https://techdept.mmecloud.tech${content?.data?.url}`,
+    },
+    openGraph: {
+      title: content?.data?.blocks[0]?.component?.options.blog_meta_title,
+      description: content?.data?.blocks[0]?.component?.options.blog_meta_description,
+      images: content?.data?.blocks[0]?.component?.options.blog_featured_image,
+      url: `https://techdept.mmecloud.tech${content?.data?.url}`,
+    },
+  };
+};
 
 const Page = async ({ params }: { params: { slug: string } }) => {
-  // const response = await fetch(
-  //   `https://blogs.takingmyclassesonline.com/wp-json/custom-blog-api/v1/blog/${params.slug}`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer 347f7627d6c4765cf911391a34a3319e2140859fbc723ebefeb4f2f39d8a1d67`,
-  //     },
-  //   }
-  // );
-  // const blog = await response.json();
+  const customComponents: any = [
+    {
+      component: BlogDetails,
+      name: "BlogDetails",
+      inputs: [
+        {
+          name: "title",
+          type: "text",
+        },
+        {
+          name: "description",
+          type: "html",
+        },
+        {
+          name: "blog_featured_image",
+          type: "file",
+        },
+        {
+          name: "blog_featured_image_alt",
+          type: "text",
+        },
+        {
+          name: "blog_categories",
+          type: "list",
+          subFields: [
+            {
+              name: "category",
+              type: "string",
+            },
+          ],
+        },
+        {
+          name: "blog_tags",
+          type: "Tags",
+        },
 
-  // console.log("blog ===>", blog);
+        {
+          name: "blog_meta_title",
+          type: "text",
+        },
+        {
+          name: "blog_meta_description",
+          type: "text",
+        },
+        {
+          name: "blog_author_name",
+          type: "text",
+        },
+        {
+          name: "blog_author_bio",
+          type: "text",
+        },
+        {
+          name: "blog_author_gravatar",
+          type: "file",
+        },
+        {
+          name: "blog_posted_date",
+          type: "timestamp",
+        },
+        {
+          name: "custom_schema",
+          type: "json",
+        },
 
-  const content = await getBlogs();
+        {
+          name: "faqs",
+          type: "list",
+          subFields: [
+            {
+              name: "question",
+              type: "string",
+            },
+            {
+              name: "answer",
+              type: "html",
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
-  return <BlogDetails blogs={content} />;
+  const contentArray = await getSingleBlog();
+  const content = contentArray.find(
+    (blog: any) => blog?.data.url === `/blog/${params.slug}`
+  );
+
+  return (
+    <>
+      <RenderBuilderContent
+        model="blogs"
+        content={content}
+        apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
+        options={{ includeRefs: true }}
+        customComponents={customComponents}
+      />
+    </>
+  );
 };
 
 export default Page;

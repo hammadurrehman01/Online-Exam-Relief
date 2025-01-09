@@ -1,20 +1,10 @@
 "use client";
 
 import { ServiceModal } from "@/components/common/ServiceModal";
-import { House } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthenticatedRoute from "../AuthenticatedRoute ";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const Page = () => {
   const [services, setServices] = useState([]);

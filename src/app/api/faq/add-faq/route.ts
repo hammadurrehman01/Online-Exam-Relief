@@ -5,11 +5,9 @@ import path from "path";
 const filePath = path.join(process.cwd(), "src/jsonData", "faq.json");
 
 export async function POST(request: Request) {
-    console.log("faqs =sdadsadasd=> ");
 
   try {
     const body = await request.json();
-    console.log("body ==> ", body);
     
     const { question, answer } = body;
 

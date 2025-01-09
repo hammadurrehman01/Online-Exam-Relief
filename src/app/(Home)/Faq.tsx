@@ -11,6 +11,9 @@ import { EllipsisVertical } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+export const revalidate = 60;
+
+
 function Faq({ Main_heading, Main_image }: any) {
   const [isLoggenIn, setIsLoggedIn] = useState<boolean>(false);
   const [faqs, setFaqs] = useState<any[]>([]);
@@ -19,7 +22,7 @@ function Faq({ Main_heading, Main_image }: any) {
   const [modal, setModal] = useState(false);
 
   const fetchFaqs = async () => {
-    const res = await fetch("/api/faq/fetch-faq");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/faq/fetch-faq`);
     if (!res.ok) {
       console.error("Failed to fetch FAQs");
       return;

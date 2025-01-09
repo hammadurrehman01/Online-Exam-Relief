@@ -18,6 +18,7 @@ import EaTestimonials from "../exam-assistance/EaTestimonials";
 import EaUrlPin from "../exam-assistance/EaUrlPin";
 import OurProcess from "../exam-assistance/OurProcess";
 import Faq from "../(Home)/Faq";
+import BlogDetails from "../blog/BlogDetails";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -1878,15 +1879,11 @@ export default async function Page(props: PageProps) {
     },
   ];
 
-  const customComponentsBlog = [
+  const customComponentsBlog: any = [
     {
-      component: BlogCard,
-      name: "BlogCard",
+      component: BlogDetails,
+      name: "BlogDetails",
       inputs: [
-        {
-          name: "id",
-          type: "number",
-        },
         {
           name: "title",
           type: "text",
@@ -1896,26 +1893,26 @@ export default async function Page(props: PageProps) {
           type: "html",
         },
         {
-          name: "blog_featured_image:",
+          name: "blog_featured_image",
           type: "file",
         },
         {
           name: "blog_featured_image_alt",
-          type: "tags",
+          type: "text",
         },
         {
           name: "blog_categories",
-          type: "select",
-          options: [
-            { label: "Category 1", value: "category1" },
-            { label: "Category 2", value: "category2" },
-            { label: "Category 3", value: "category3" },
-            // Add more categories as needed
+          type: "list",
+          subFields: [
+            {
+              name: "category",
+              type: "string",
+            },
           ],
         },
         {
-          name: "blog_slug",
-          type: "text",
+          name: "blog_tags",
+          type: "Tags",
         },
         {
           name: "blog_meta_title",
@@ -1945,10 +1942,21 @@ export default async function Page(props: PageProps) {
           name: "custom_schema",
           type: "json",
         },
-        // {
-        //   name: "faqs",
-        //   type: "map",
-        // },
+
+        {
+          name: "faqs",
+          type: "list",
+          subFields: [
+            {
+              name: "question",
+              type: "string",
+            },
+            {
+              name: "answer",
+              type: "html",
+            },
+          ],
+        },
       ],
     },
   ];
@@ -1968,19 +1976,20 @@ export default async function Page(props: PageProps) {
     builder
       .get("category", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
-        url: pathname, // Adjust the URL as necessary for the other model
+        url: pathname,
       })
       .toPromise(),
     builder
       .get("subcategory", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
-        url: pathname, // Adjust the URL as necessary for the other model
+        url: pathname,
       })
       .toPromise(),
     builder
       .get("blogs", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
-        url: pathname, // Adjust the URL as necessary for the other model
+        url: pathname,
+        cacheSeconds: 0,
       })
       .toPromise(),
   ]);
@@ -2000,7 +2009,7 @@ export default async function Page(props: PageProps) {
           <RenderBuilderContent
             model="category"
             content={categorypageContent}
-            apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
+            apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY}
             options={{ includeRefs: true }}
             customComponents={customComponentscategory}
           />
@@ -2011,7 +2020,7 @@ export default async function Page(props: PageProps) {
           <RenderBuilderContent
             model="subcategory"
             content={subcategorypageContent}
-            apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
+            apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY}
             options={{ includeRefs: true }}
             customComponents={customComponentssubcategory}
           />
