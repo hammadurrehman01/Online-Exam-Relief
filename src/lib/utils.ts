@@ -12,7 +12,3 @@ export const openChat = () => {
 };
 
 
-export const fetchAllPages = async () => {
-  const response = await fetch("/api/get-all-pages", { cache: "reload" });
-  return await response.json();
-};

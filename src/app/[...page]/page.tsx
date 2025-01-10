@@ -1971,25 +1971,32 @@ export default async function Page(props: PageProps) {
       .get("homepage", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
         url: pathname,
+        cachebust: true,
+        cacheSeconds: 1,
       })
       .toPromise(),
     builder
       .get("category", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
         url: pathname,
+        cachebust: true,
+        cacheSeconds: 1,
       })
       .toPromise(),
     builder
       .get("subcategory", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
         url: pathname,
+        cachebust: true,
+        cacheSeconds: 1,
       })
       .toPromise(),
     builder
       .get("blogs", {
         apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
         url: pathname,
-        cacheSeconds: 0,
+        cachebust: true,
+        cacheSeconds: 1,
       })
       .toPromise(),
   ]);

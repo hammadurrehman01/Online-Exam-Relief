@@ -7,7 +7,7 @@ export async function POST(req: any) {
 
     const existingSlug = "/";
 
-    // Fetch the existing page content by its slug
+
     const existingPage = await builder
       .get(`${selectedCategory ? "subcategory" : "category"}`, {
         url: `${

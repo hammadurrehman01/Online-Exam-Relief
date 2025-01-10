@@ -4,6 +4,7 @@ import { ServiceModal } from "@/components/common/ServiceModal";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthenticatedRoute from "../AuthenticatedRoute ";
+import { fetchAllCategories } from "@/lib/services";
 
 
 const Page = () => {
@@ -12,13 +13,20 @@ const Page = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const servicesFromLS = localStorage.getItem("services");
-    if (servicesFromLS) {
-      setServices(JSON.parse(servicesFromLS));
-    }
-  }, []);
+ useEffect(() => {
+    const getAllCategories = async () => {
+      const data: any = await fetchAllCategories();
 
+      const servicesObj = data.data.map((item:any) => {
+        return {
+          category: item.name,
+          href: item.data.url
+        }
+      })
+      setServices(servicesObj);
+    };
+    getAllCategories()
+  }, []);
   const handleSignout = () => {
     const user: any = localStorage.getItem("user");
     const parsedUser = JSON.parse(user);

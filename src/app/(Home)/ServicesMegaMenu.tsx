@@ -1,3 +1,5 @@
+"use client";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -6,114 +8,121 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { fetchAllCategories, fetchAllPages } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const defaultServices = [
-  {
-    category: "Exam Assistance Services",
-    href: "/exam-assistance",
-    subcategories: [
-      {
-        name: "Timed Test Support",
-        href: "/exam-assistance/timed-test-support",
-      },
-      { name: "Live Exam Support", href: "/exam-assistance/online-exam-help" },
-      {
-        name: "Mock Exams & Practice Tests",
-        href: "/exam-assistance/practice-test-preparation",
-      },
-    ],
-  },
-  {
-    category: "Subject-Specific Services",
-    href: "/subject-specific",
-    subcategories: [
-      { name: "Math Exam Help", href: "/subject-specific/math-exam-help" },
-      {
-        name: "Science Exam Help",
-        href: "/subject-specific/science-exam-help",
-      },
-      {
-        name: "Engineering Exam Help",
-        href: "/subject-specific/engineering-exam-help",
-      },
-      { name: "Law Exam Help", href: "/subject-specific/law-exam-help" },
-      {
-        name: "Business & Finance Exam Help",
-        href: "/subject-specific/business-finance-exam-help",
-      },
-      {
-        name: "Humanities Exam Help",
-        href: "/subject-specific/humanities-exam-help",
-      },
-    ],
-  },
-  {
-    category: "Assignment Help Services",
-    href: "/assignment-help",
-    subcategories: [
-      {
-        name: "Essay & Paper Writing Help",
-        href: "/assignment-help/essay-paper-writing",
-      },
-      { name: "Project Support", href: "/assignment-help/project-support" },
-    ],
-  },
-  {
-    category: "Test Preparation Packages",
-    href: "/test-preparation",
-    subcategories: [
-      {
-        name: "Personalized Study Plans",
-        href: "/test-preparation/personalized-study-plans",
-      },
-      {
-        name: "One-on-One Tutoring",
-        href: "/test-preparation/one-on-one-tutoring",
-      },
-    ],
-  },
-  {
-    category: "Emergency Exam Support",
-    href: "/emergency-exam-support",
-    subcategories: [
-      {
-        name: "Last-Minute Exam Help",
-        href: "/emergency-exam-support/last-minute-help",
-      },
-      {
-        name: "Overnight Preparation Assistance",
-        href: "/emergency-exam-support/overnight-preparation",
-      },
-    ],
-  },
-];
+// const defaultServices = [
+//   {
+//     category: "Exam Assistance Services",
+//     href: "/exam-assistance",
+//     subcategories: [
+//       {
+//         name: "Timed Test Support",
+//         href: "/exam-assistance/timed-test-support",
+//       },
+//       { name: "Live Exam Support", href: "/exam-assistance/online-exam-help" },
+//       {
+//         name: "Mock Exams & Practice Tests",
+//         href: "/exam-assistance/practice-test-preparation",
+//       },
+//     ],
+//   },
+//   {
+//     category: "Subject-Specific Services",
+//     href: "/subject-specific",
+//     subcategories: [
+//       { name: "Math Exam Help", href: "/subject-specific/math-exam-help" },
+//       {
+//         name: "Science Exam Help",
+//         href: "/subject-specific/science-exam-help",
+//       },
+//       {
+//         name: "Engineering Exam Help",
+//         href: "/subject-specific/engineering-exam-help",
+//       },
+//       { name: "Law Exam Help", href: "/subject-specific/law-exam-help" },
+//       {
+//         name: "Business & Finance Exam Help",
+//         href: "/subject-specific/business-finance-exam-help",
+//       },
+//       {
+//         name: "Humanities Exam Help",
+//         href: "/subject-specific/humanities-exam-help",
+//       },
+//     ],
+//   },
+//   {
+//     category: "Assignment Help Services",
+//     href: "/assignment-help",
+//     subcategories: [
+//       {
+//         name: "Essay & Paper Writing Help",
+//         href: "/assignment-help/essay-paper-writing",
+//       },
+//       { name: "Project Support", href: "/assignment-help/project-support" },
+//     ],
+//   },
+//   {
+//     category: "Test Preparation Packages",
+//     href: "/test-preparation",
+//     subcategories: [
+//       {
+//         name: "Personalized Study Plans",
+//         href: "/test-preparation/personalized-study-plans",
+//       },
+//       {
+//         name: "One-on-One Tutoring",
+//         href: "/test-preparation/one-on-one-tutoring",
+//       },
+//     ],
+//   },
+//   {
+//     category: "Emergency Exam Support",
+//     href: "/emergency-exam-support",
+//     subcategories: [
+//       {
+//         name: "Last-Minute Exam Help",
+//         href: "/emergency-exam-support/last-minute-help",
+//       },
+//       {
+//         name: "Overnight Preparation Assistance",
+//         href: "/emergency-exam-support/overnight-preparation",
+//       },
+//     ],
+//   },
+// ];
 
 function ServicesMegaMenu() {
   const [activeCategory, setActiveCategory] = React.useState<string | null>(
     null
   );
-
-  const [services, setServices] = useState(defaultServices);
+  const [service, setService] = useState();
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
-    const storedServices = JSON.parse(localStorage.getItem("services") || "[]");
+    const getAllCategories = async () => {
+      const data: any = await fetchAllCategories();
 
-    const mergedServices = [
-      ...defaultServices,
-      ...storedServices.filter(
-        (storedService: any) =>
-          !defaultServices.some(
-            (defaultService) =>
-              defaultService.category === storedService.category
-          )
-      ),
-    ];
+      const servicesObj = data.data.map((item: any) => {
+        return {
+          category: item.name,
+          href: item.data.url,
+          subCategories: [
+            {
+              name: "Timed Test Support",
+              href: "/exam-assistance/timed-test-support"
+            }
+          ]
 
-    setServices(mergedServices);
+        };
+      });
+
+      setServices(servicesObj);
+    };
+    getAllCategories();
   }, []);
 
   return (
@@ -126,7 +135,7 @@ function ServicesMegaMenu() {
           <NavigationMenuContent>
             <div className="flex justify-center p-4 lg:w-[800px]">
               <div className="w-1/3 border-r pr-4 h-[300px] overflow-y-scroll">
-                {services.map((service, index) => (
+                {services.map((service: any, index) => (
                   <NavigationMenuLink key={index} asChild>
                     <Link
                       href={service.href}
@@ -149,7 +158,7 @@ function ServicesMegaMenu() {
                   <div className="h-[300px] overflow-y-scroll">
                     <h3 className="font-medium mb-2">{activeCategory}</h3>
                     <ul className="space-y-1">
-                      {services
+                      {/* {services
                         .find((s) => s.category === activeCategory)
                         ?.subcategories?.map((subcat) => (
                           <li key={subcat.name}>
@@ -162,7 +171,7 @@ function ServicesMegaMenu() {
                               </Link>
                             </NavigationMenuLink>
                           </li>
-                        ))}
+                        ))} */}
                     </ul>
                   </div>
                 )}

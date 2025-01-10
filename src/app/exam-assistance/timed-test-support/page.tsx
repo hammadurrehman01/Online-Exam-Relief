@@ -1,4 +1,3 @@
-
 import React from "react";
 import TimedTestBanner from "./TimedTestBanner";
 import TestSupportCard from "./TestSupportCard";
@@ -15,7 +14,7 @@ const Page = async () => {
     .get("subcategory", {
       url: "/exam-assistance/timed-test-support",
       userAttributes: {
-        urlPath: "/exam-assistance/timed-test-support",
+        urlPath: "/",
       },
       cache: false,
       cacheSeconds: 1,
@@ -23,7 +22,6 @@ const Page = async () => {
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
     })
     .toPromise();
-
 
   if (!content) {
     console.error("Sub Cateory data is null. Rendering fallback UI.");

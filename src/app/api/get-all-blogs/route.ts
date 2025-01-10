@@ -7,10 +7,10 @@ export async function GET() {
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
       options: { noTargeting: true, limit: 100 },
       cachebust: true,
-      // cacheSeconds: 12,
-      // query: {
-      //   published: "published",
-      // },
+      cacheSeconds: 1,
+      query: {
+        published: "published",
+      },
     });
     if (response) {
       return NextResponse.json(response);

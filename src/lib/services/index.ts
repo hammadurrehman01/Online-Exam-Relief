@@ -34,3 +34,13 @@ export async function getHomeData() {
     })
     .toPromise();
 }
+
+export const fetchAllPages = async () => {
+  const response = await fetch("/api/get-all-pages", { cache: "reload" });
+  return await response.json();
+};
+
+export const fetchAllCategories = async () => {
+  const response = await fetch("/api/get-all-categories", { cache: "reload" });
+  return await response.json();
+};

@@ -20,10 +20,10 @@ const Page = async () => {
   try {
     const response = await fetch(`${baseUrl}/api/get-all-blogs`, {
       cache: "reload",
-    }); // `force-cache` for ISR
+    });
     if (!response.ok) throw new Error("Failed to fetch blogs");
     content = await response.json();
-    console.log("response", content)
+    // console.log("response", content)
   } catch (error) {
     console.error("Error fetching blogs:", error);
   }
