@@ -39,27 +39,27 @@ function TimedTestimonials({
       designation: Person_two_bio,
       src: Person_two_image,
     },
-    {
-      quote: Title_three,
-      name: Person_three_name,
-      designation: Person_three_bio,
-      src: Person_three_image,
-    },
-    {
-      quote: Title_four,
-      name: Person_four_name,
-      designation: Person_four_bio,
-      src: Person_four_image,
-    },
-    {
-      quote: Title_five,
-      name: Person_five_name,
-      designation: Person_five_bio,
-      src: Person_five_image,
-    },
+    // {
+    //   quote: Title_three,
+    //   name: Person_three_name,
+    //   designation: Person_three_bio,
+    //   src: Person_three_image,
+    // },
+    // {
+    //   quote: Title_four,
+    //   name: Person_four_name,
+    //   designation: Person_four_bio,
+    //   src: Person_four_image,
+    // },
+    // {
+    //   quote: Title_five,
+    //   name: Person_five_name,
+    //   designation: Person_five_bio,
+    //   src: Person_five_image,
+    // },
   ];
   return (
-    <div className="mx-auto max-w-screen-xl mt-20 -z-[999]">
+    <div className="mx-auto max-w-screen-xl mt-20 -z-[9999999px]">
       <h2 className="text-center mt-5 font-bold text-3xl md:text-5xl">
         {Main_heading}
       </h2>

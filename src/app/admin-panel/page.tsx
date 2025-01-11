@@ -6,27 +6,27 @@ import { useEffect, useState } from "react";
 import AuthenticatedRoute from "../AuthenticatedRoute ";
 import { fetchAllCategories } from "@/lib/services";
 
-
 const Page = () => {
   const [services, setServices] = useState([]);
   const [serviceModal, setServiceModal] = useState<boolean>(false);
 
   const router = useRouter();
 
- useEffect(() => {
+  useEffect(() => {
     const getAllCategories = async () => {
       const data: any = await fetchAllCategories();
 
-      const servicesObj = data.data.map((item:any) => {
+      const servicesObj = data.data.map((item: any) => {
         return {
           category: item.name,
-          href: item.data.url
-        }
-      })
+          href: item.data.url,
+        };
+      });
       setServices(servicesObj);
     };
-    getAllCategories()
+    getAllCategories();
   }, []);
+
   const handleSignout = () => {
     const user: any = localStorage.getItem("user");
     const parsedUser = JSON.parse(user);

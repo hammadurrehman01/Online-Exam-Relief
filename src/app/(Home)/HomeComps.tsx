@@ -35,7 +35,7 @@ any) {
     <RenderBuilderContent
       model="homepage"
       content={response}
-      apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY}
+      apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
       options={{ includeRefs: true }}
       customComponents={customComponents}
     />

@@ -19,6 +19,7 @@ import EaUrlPin from "../exam-assistance/EaUrlPin";
 import OurProcess from "../exam-assistance/OurProcess";
 import Faq from "../(Home)/Faq";
 import BlogDetails from "../blog/BlogDetails";
+import { getHomeData } from "@/lib/services";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -2005,11 +2006,29 @@ export default async function Page(props: PageProps) {
       .toPromise(),
   ]);
 
+  // const baseUrl =
+  // process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
+  // const response = await fetch(`${baseUrl}/api/get-homedata`, {
+  //   cache: "reload",
+  //   headers:{
+  //     accept: 'application/json',
+  //   }})
+
+  const homeContent = await getHomeData();
+
+console.log("homeContent ===>", homeContent)
+
+  if (!homeContent) {
+    console.error("Home data is null. Rendering fallback UI.");
+    return <div>Failed to load data. Please try again later.</div>;
+  }
+  
   return (
     <>
-      {homepageContent && (
+      {homeContent && (
         <RenderBuilderContent
-          content={homepageContent}
+          content={homeContent}
           apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
           model="homepage"
           customComponents={customComponentsHomepage}

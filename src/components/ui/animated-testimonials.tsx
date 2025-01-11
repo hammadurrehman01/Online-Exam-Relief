@@ -25,6 +25,7 @@ export const AnimatedTestimonials = ({
   };
 
   const handlePrev = () => {
+
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
@@ -37,7 +38,7 @@ export const AnimatedTestimonials = ({
       const interval = setInterval(handleNext, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay]);
+  }, [autoplay,active]);
 
   const randomRotateY = () => {
     return Math.floor(Math.random() * 21) - 10;

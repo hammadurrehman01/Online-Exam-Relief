@@ -10,34 +10,54 @@ import OurServices from "./OurServices";
 import Solutions from "./Solutions";
 import Testimonials from "./Testimonials";
 import WorkProcess from "./WorkProcess";
+import { getHomeData } from "@/lib/services";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+
+async function fetchHomeData() {
+  try {
+    const response = await fetch(`https://gogrades-testing.eduresearchers.com/api/get-homedata`, {
+      cache: "reload",
+      headers:{
+        "Accept": "application/json",
+      }
+    });
+
+
+    if (!response.ok) {
+      console.error(`Failed to fetch home data: ${response.statusText}`);
+      return null;
+    }
+
+    const content = await response.text();
+
+    console.log("content", content);
+    
+
+    return JSON.parse(content)
+  } catch (error: any) {
+    console.error("Error fetching home data:", error.message);
+    return null;
+  }
+}
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const content = await builder
-    .get("homepage", {
-      userAttributes: {
-        urlPath: "/",
-      },
-      cache: false,
-      cacheSeconds: 1,
-      cachebust: true,
-      apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
-    })
-    .toPromise();
+  const content = await fetchHomeData();
 
   return {
-    title: content?.data?.metatitle || "Default Title",
-    description: content?.data?.metadescription || "Default Description",
+    title: content?.data?.data?.metatitle || "Default Title",
+    description: content?.data?.data?.metadescription || "Default Description",
     alternates: {
-      canonical: content?.data?.canonical || "Default Canonical",
+      canonical: content?.data?.data?.canonical || "Default Canonical",
     },
     robots: {
-      index: content?.data?.robots?.index,
-      follow: content?.data?.robots?.follow,
-      nocache: content?.data?.robots?.nocache,
+      index: content?.data?.data?.robots?.index,
+      follow: content?.data?.data?.robots?.follow,
+      nocache: content?.data?.data?.robots?.nocache,
       googleBot: {
-        index: content?.data?.robots?.googleBot.index,
-        follow: content?.data?.robots?.googleBot.follow,
-        noimageindex: content?.data?.robots?.googleBot.noimageindex,
+        index: content?.data?.data?.robots?.googleBot.index,
+        follow: content?.data?.data?.robots?.googleBot.follow,
+        noimageindex: content?.data?.data?.robots?.googleBot.noimageindex,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
@@ -47,18 +67,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const Page = async () => {
-  const content = await builder
-    .get("homepage", {
-      userAttributes: {
-        urlPath: "/",
-      },
-      cache: false,
-      cachebust: true,
-      cacheSeconds: 1,
-      apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
-    })
-    .toPromise();
-
+  const content = await getHomeData();
   if (!content) {
     console.error("Home data is null. Rendering fallback UI.");
     return <div>Failed to load data. Please try again later.</div>;
@@ -580,34 +589,8 @@ const Page = async () => {
 
   return (
     <div>
-      {/* JSON-LD Schema Markup */}
-      {/* <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(content.data.organizationschema),
-        }}
-      />
-      <script 
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(content.data.websiteschema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(content.data.productschema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(content.data.productschema),
-        }}
-      /> */}
-
       <HomeComps
-        response={content}
+        response={content.data}
         customComponents={customComponents}
         // darklogo={content?.data?.darklogo}
         // lightlogo={content?.data?.lightlogo}
@@ -617,3 +600,37 @@ const Page = async () => {
 };
 
 export default Page;
+
+// const content = await builder
+//   .get("homepage", {
+//     userAttributes: {
+//       urlPath: "/",
+//     },
+//     cache: false,
+//     cacheSeconds: 1,
+//     cachebust: true,
+//     apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY!,
+//   })
+//   .toPromise();
+
+// const content = await builder
+//   .get("homepage", {
+//     userAttributes: {
+//       urlPath: "/",
+//     },
+//     cache: false,
+//     cachebust: true,
+//     cacheSeconds: 1,
+//     apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
+//   })
+//   .toPromise();
+
+// if (!content) {
+//   console.error("Home data is null. Rendering fallback UI.");
+//   return <div>Failed to load data. Please try again later.</div>;
+// }
+
+
+
+
+

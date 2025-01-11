@@ -122,12 +122,6 @@ export function ServiceModal({
       return {
         category: item.name,
         href: item.data.url,
-        subCategories: [
-          {
-            name: "Timed Test Support",
-            href: "/exam-assistance/timed-test-support"
-          }
-        ]
       };
     });
 
@@ -143,46 +137,44 @@ export function ServiceModal({
       }
 
       // API call
-      const response = await fetch("/api/duplicate-page", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category: subCategory,
-          newSlug: "/exam-assistance/timed-test-support",
-          selectedCategory,
-        }),
+      // const response = await fetch("/api/duplicate-page", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     category: subCategory,
+      //     newSlug: "/exam-assistance/timed-test-support",
+      //     selectedCategory,
+      //   }),
+      // });
+
+      // const data = await response.json();
+
+      // if (response.ok) {
+
+      const updatedServices = services.map((service: any) => {
+        if (service.href === selectedCategory.href) {
+          return {
+            ...service,
+            subcategories: [
+              ...(service.subcategories || []),
+              {
+                name: subCategory,
+                href: `${service.href}/${slug.replaceAll(" ", "-")}`,
+              },
+            ],
+          };
+        }
+        return service;
       });
+      setServices(updatedServices);
 
-      const data = await response.json();
+      toast.success("Subcategory added successfully!");
+      setServiceModal(false);
 
-      if (response.ok) {
-        const updatedServices = services.map((service: any) => {
-          if (service.href === selectedCategory.href) {
-            return {
-              ...service,
-              subcategories: [
-                ...(service.subcategories || []), // Default to empty array if undefined
-                {
-                  name: subCategory,
-                  href: `${service.href}/${slug.replaceAll(" ", "-")}`,
-                },
-              ],
-            };
-          }
-          return service;
-        });
-
-        // Update state and localStorage
-        setServices(updatedServices);
-        localStorage.setItem("services", JSON.stringify(updatedServices));
-
-        // Success notification and cleanup
-        toast.success("Subcategory added successfully!");
-        setServiceModal(false);
-      } else {
-        // Handle API errors
-        toast.error(data.message || "Failed to add subcategory.");
-      }
+      // } else {
+      //   // Handle API errors
+      //   toast.error(data.message || "Failed to add subcategory.");
+      // }
     } catch (error) {
       // General error handling
       console.error("Error adding subcategory:", error);
@@ -357,6 +349,7 @@ export function ServiceModal({
               <Select
                 onValueChange={(value) => {
                   const selectedCategory = JSON.parse(value);
+                  console.log("selectedCategory =>", selectedCategory);
                   setSelectedCategory({
                     category: selectedCategory?.category,
                     href: selectedCategory.href,

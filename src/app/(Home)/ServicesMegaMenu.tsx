@@ -99,7 +99,6 @@ function ServicesMegaMenu() {
   const [activeCategory, setActiveCategory] = React.useState<string | null>(
     null
   );
-  const [service, setService] = useState();
   const [services, setServices] = useState([]);
 
   useEffect(() => {
@@ -110,12 +109,7 @@ function ServicesMegaMenu() {
         return {
           category: item.name,
           href: item.data.url,
-          subCategories: [
-            {
-              name: "Timed Test Support",
-              href: "/exam-assistance/timed-test-support"
-            }
-          ]
+        
 
         };
       });
