@@ -1973,6 +1973,7 @@ export default async function Page(props: PageProps) {
         url: pathname,
         cachebust: true,
         cacheSeconds: 1,
+        cache: false,
       })
       .toPromise(),
     builder
@@ -1981,6 +1982,7 @@ export default async function Page(props: PageProps) {
         url: pathname,
         cachebust: true,
         cacheSeconds: 1,
+        cache: false,
       })
       .toPromise(),
     builder
@@ -1989,6 +1991,7 @@ export default async function Page(props: PageProps) {
         url: pathname,
         cachebust: true,
         cacheSeconds: 1,
+        cache: false,
       })
       .toPromise(),
     builder
@@ -1997,6 +2000,7 @@ export default async function Page(props: PageProps) {
         url: pathname,
         cachebust: true,
         cacheSeconds: 1,
+        cache: false,
       })
       .toPromise(),
   ]);
