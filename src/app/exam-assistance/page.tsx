@@ -20,7 +20,7 @@ const Page = async () => {
     .get("category", {
       url: "/exam-assistance",
       userAttributes: {
-        urlPath: "/exam-assistance",
+        urlPath: "/",
       },
       cache: false,
       cacheSeconds: 1,
