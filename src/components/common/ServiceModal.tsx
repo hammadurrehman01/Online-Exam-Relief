@@ -71,7 +71,7 @@ export function ServiceModal({
           const data = await response.json();
 
           if (response.ok) {
-            toast.success(`Page created at ${slug}`);
+            toast.success(`Page created at ${slug.replaceAll(" ", "-")}}`);
             if (isChecked) {
               const updatedServices = [
                 ...services,
@@ -349,7 +349,6 @@ export function ServiceModal({
               <Select
                 onValueChange={(value) => {
                   const selectedCategory = JSON.parse(value);
-                  console.log("selectedCategory =>", selectedCategory);
                   setSelectedCategory({
                     category: selectedCategory?.category,
                     href: selectedCategory.href,
