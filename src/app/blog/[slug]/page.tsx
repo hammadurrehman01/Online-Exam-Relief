@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { RenderBuilderContent } from "@/components/builder";
-import { getSingleBlog } from "@/lib/services";
+import { getBlogs, getSingleBlog } from "@/lib/services";
 import BlogDetails from "../BlogDetails";
 import { Metadata } from "next";
 
@@ -15,14 +15,18 @@ export const generateMetadata = async ({
   );
 
   return {
-    title: content?.data?.blocks[0]?.component?.options.blog_meta_title || "Blog",
-    description: content?.data?.blocks[0]?.component?.options.blog_meta_description || "Read this amazing blog!",
+    title:
+      content?.data?.blocks[0]?.component?.options.blog_meta_title || "Blog",
+    description:
+      content?.data?.blocks[0]?.component?.options.blog_meta_description ||
+      "Read this amazing blog!",
     alternates: {
       canonical: `https://techdept.mmecloud.tech${content?.data?.url}`,
     },
     openGraph: {
       title: content?.data?.blocks[0]?.component?.options.blog_meta_title,
-      description: content?.data?.blocks[0]?.component?.options.blog_meta_description,
+      description:
+        content?.data?.blocks[0]?.component?.options.blog_meta_description,
       images: content?.data?.blocks[0]?.component?.options.blog_featured_image,
       url: `https://techdept.mmecloud.tech${content?.data?.url}`,
     },
@@ -113,7 +117,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     },
   ];
 
-  const contentArray = await getSingleBlog();
+  const contentArray = await getBlogs();
   const content = contentArray.find(
     (blog: any) => blog?.data.url === `/blog/${params.slug}`
   );
@@ -123,6 +127,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       <RenderBuilderContent
         model="blogs"
         content={content}
+        inlineContent={true}
         apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
         options={{ includeRefs: true }}
         customComponents={customComponents}

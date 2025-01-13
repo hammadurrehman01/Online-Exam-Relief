@@ -349,7 +349,6 @@ export function ServiceModal({
               <Select
                 onValueChange={(value) => {
                   const selectedCategory = JSON.parse(value);
-                  console.log("selectedCategory =>", selectedCategory);
                   setSelectedCategory({
                     category: selectedCategory?.category,
                     href: selectedCategory.href,

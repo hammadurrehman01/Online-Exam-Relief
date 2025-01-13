@@ -2017,18 +2017,17 @@ export default async function Page(props: PageProps) {
 
   const homeContent = await getHomeData();
 
-console.log("homeContent ===>", homeContent)
-
   if (!homeContent) {
     console.error("Home data is null. Rendering fallback UI.");
     return <div>Failed to load data. Please try again later.</div>;
   }
-  
+
   return (
     <>
-      {homeContent && (
+      {homepageContent && (
         <RenderBuilderContent
-          content={homeContent}
+          content={homepageContent}
+          inlineContent={true}
           apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
           model="homepage"
           customComponents={customComponentsHomepage}
@@ -2039,6 +2038,7 @@ console.log("homeContent ===>", homeContent)
           <RenderBuilderContent
             model="category"
             content={categorypageContent}
+            inlineContent={true}
             apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY}
             options={{ includeRefs: true }}
             customComponents={customComponentscategory}
@@ -2050,6 +2050,7 @@ console.log("homeContent ===>", homeContent)
           <RenderBuilderContent
             model="subcategory"
             content={subcategorypageContent}
+            inlineContent={true}
             apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY}
             options={{ includeRefs: true }}
             customComponents={customComponentssubcategory}
@@ -2060,6 +2061,7 @@ console.log("homeContent ===>", homeContent)
         <div>
           <RenderBuilderContent
             model="blogs"
+            inlineContent={true}
             content={blogpageContent}
             apiKey="15a1f6006b8b43d9a1f6953c09e3b979"
             options={{ includeRefs: true }}

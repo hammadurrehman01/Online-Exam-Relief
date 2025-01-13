@@ -1,36 +1,46 @@
 import Head from "next/head";
 import { Metadata } from "next";
 import Blogs from "./Blogs";
-
-export const revalidate = 60;
+import { builder } from "@builder.io/sdk";
 
 export const metadata: Metadata = {
   title: "Blogs",
   description: `All Blogs`,
   alternates: {
-    canonical: "https://techdept.mmecloud.tech/blogs",
+    canonical: "https://gogrades-testing.eduresearchers.com/blogs",
   },
 };
 
-const Page = async () => {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
-
-  let content = [];
+async function fetchBlogsData() {
   try {
-    const response = await fetch(`${baseUrl}/api/get-all-blogs`, {
-      cache: "reload",
+    const content = await builder.getAll("blogs", {
+      apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
+      options: { noTargeting: true, limit: 100 },
+      cachebust: true,
+      cache: false,
+      query: {
+        published: "published",
+      },
     });
-    if (!response.ok) throw new Error("Failed to fetch blogs");
-    content = await response.json();
-    // console.log("response", content)
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-  }
 
-  if (!content || content.length === 0) {
-    console.error("Blog data is null or empty. Rendering fallback UI.");
-    return <div>Failed to load data. Please try again later.</div>;
+    if (!content) {
+      console.error(`Content isn't retrieved`);
+      return null;
+    }
+
+    return content;
+  } catch (error: any) {
+    console.error("Error fetching blogs data:", error.message);
+    return null;
+  }
+}
+
+const Page = async () => {
+  const content = await fetchBlogsData();
+
+  if (!content) {
+    console.error(`Content isn't retrieved`);
+    return null;
   }
 
   return (
@@ -43,17 +53,14 @@ const Page = async () => {
         <meta property="og:description" content="All Blogs" />
         <meta
           property="og:url"
-          content="https://takingmyclassesonline.com/blogs"
+          content="https://gogrades-testing.eduresearchers.com/blogs"
         />
-        <meta property="og:site_name" content="Takingmyclassesonline" />
+        <meta property="og:site_name" content="OnlineExamRelief" />
         <meta
           property="og:image"
-          content="https://takingmyclassesonline.com/assets/weblogo.png"
+          content="https://gogrades-testing.eduresearchers.com/blogs/logo (1).png"
         />
-        <meta
-          property="og:image:secure_url"
-          content="https://takingmyclassesonline.com/assets/popupModal.webp"
-        />
+
         <meta property="og:image:width" content="1050" />
         <meta property="og:image:height" content="600" />
         <meta property="og:image:alt" content="Blogs" />
