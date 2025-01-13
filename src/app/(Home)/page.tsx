@@ -17,24 +17,20 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 async function fetchHomeData() {
   try {
     const response = await fetch(`https://gogrades-testing.eduresearchers.com/api/get-homedata`, {
-      cache: "reload",
-      headers:{
-        "Accept": "application/json",
-      }
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
-
 
     if (!response.ok) {
       console.error(`Failed to fetch home data: ${response.statusText}`);
       return null;
     }
 
-    const content = await response.text();
+    const content = await response.json();
 
-    console.log("content", content);
-    
-
-    return JSON.parse(content)
+    return (content)
   } catch (error: any) {
     console.error("Error fetching home data:", error.message);
     return null;
