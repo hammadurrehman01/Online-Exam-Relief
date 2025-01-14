@@ -16,8 +16,8 @@ async function fetchBlogsData() {
     const content = await builder.getAll("blogs", {
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
       options: { noTargeting: true, limit: 100 },
-      cachebust: true,
       cache: false,
+      staleCacheSeconds: 0,
       query: {
         published: "published",
       },

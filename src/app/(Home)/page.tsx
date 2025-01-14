@@ -11,7 +11,6 @@ import Solutions from "./Solutions";
 import Testimonials from "./Testimonials";
 import WorkProcess from "./WorkProcess";
 
-
 async function fetchHomeData() {
   try {
     const content = builder
@@ -19,7 +18,7 @@ async function fetchHomeData() {
         userAttributes: { urlPath: "/" },
         apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
         cache: false,
-        cachebust: true,
+        staleCacheSeconds: 0
       })
       .toPromise();
 

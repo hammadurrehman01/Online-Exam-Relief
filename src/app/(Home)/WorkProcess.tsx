@@ -19,12 +19,11 @@ function WorkProcess({
   Card_four_title,
   Card_four_description,
 }: any) {
-
   return (
     <div className="mt-12 mx-auto max-w-screen-xl">
       <h2 className="text-center font-bold text-5xl ">{Main_heading}</h2>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mt-5 p-2 md:p-5 scale-95 md:scale-100 ">
-        <div  className="group">
+        <div className="group">
           <div className="group-hover:scale-105  group-hover:shadow-xl transition ease-in duration-500 delay-400 lg:h-[350px] rounded-xl shadow-xl bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#5390d9] dark:bg-gradient-to-br dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97] p-5">
             <div className="pt-5 flex items-center justify-around">
               <Image
@@ -46,14 +45,14 @@ function WorkProcess({
             <h2 className=" mt-8 text-lg md:text-2xl font-bold text-zinc-100">
               {Card_one_title}
             </h2>
-            <p className="mt-2  font-medium text-sm md:text-base text-zinc-100">
+            <p className="mt-2 font-medium text-sm md:text-base text-zinc-100">
               {Card_one_description}
             </p>
           </div>
         </div>
 
         <div className="group">
-          <div className="group-hover:scale-105  group-hover:shadow-xl transition ease-in duration-500 delay-400 lg:h-[350px] rounded-xl shadow-xl bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#5390d9] dark:bg-gradient-to-br dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97] p-5">
+          <div className="group-hover:scale-105 group-hover:shadow-xl transition ease-in duration-500 delay-400 lg:h-[350px] rounded-xl shadow-xl bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#5390d9] dark:bg-gradient-to-br dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97] p-5">
             <div className="pt-5 flex items-center justify-around">
               <Image
                 loading="eager"
@@ -80,7 +79,7 @@ function WorkProcess({
           </div>
         </div>
 
-        <div  className="group">
+        <div className="group">
           <div className="group-hover:scale-105  group-hover:shadow-xl transition ease-in duration-500 delay-400 lg:h-[350px] rounded-xl shadow-xl bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#5390d9] dark:bg-gradient-to-br dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97] p-5">
             <div className="pt-5 flex items-center justify-around">
               <Image
@@ -108,7 +107,7 @@ function WorkProcess({
           </div>
         </div>
 
-        <div  className="group">
+        <div className="group">
           <div className="group-hover:scale-105  group-hover:shadow-xl transition ease-in duration-500 delay-400 lg:h-[350px] rounded-xl shadow-xl bg-gradient-to-br from-[#a9d6e5] via-[#89c2d9] to-[#5390d9] dark:bg-gradient-to-br dark:from-[#03045e] dark:via-[#1d1e4e] dark:to-[#2a6f97] p-5">
             <div className="pt-5 flex items-center justify-around">
               <Image
