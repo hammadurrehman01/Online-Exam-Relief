@@ -130,7 +130,6 @@ export function ServiceModal({
 
   const AddSubCategory = async () => {
     try {
-      // Validate required fields
       if (!subCategory || !slug || !selectedCategory) {
         toast.error("Please provide all required fields.");
         return;
@@ -167,6 +166,7 @@ export function ServiceModal({
         return service;
       });
       setServices(updatedServices);
+      console.log("updatedServices", updatedServices)
 
       toast.success("Subcategory added successfully!");
       setServiceModal(false);
@@ -324,7 +324,7 @@ export function ServiceModal({
                   id="sub-category"
                   value={subCategory}
                   onChange={(e) => setSubCategory(e.target.value)}
-                  className="col-span-3"
+                  className="col-span-3 border-[0.5px] border-gray-700"
                   placeholder="Sub category title"
                 />
               </div>
@@ -336,7 +336,7 @@ export function ServiceModal({
                   id="href"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  className="col-span-3"
+                  className="col-span-3 border-[0.5px] border-gray-700"
                   placeholder="/sub-category-slug"
                 />
               </div>{" "}

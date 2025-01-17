@@ -8,6 +8,10 @@ export async function GET() {
         urlPath: "/",
       },
       url: "/",
+      cache: false,
+      cachebust: true,
+      cacheSeconds: 0,
+      staleCacheSeconds: 0,
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
     });
 

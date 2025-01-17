@@ -13,15 +13,21 @@ import WorkProcess from "./WorkProcess";
 
 async function fetchHomeData() {
   try {
-    const content = builder
-      .get("homepage", {
-        userAttributes: { urlPath: "/" },
-        apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
-        cache: false,
-        staleCacheSeconds: 4,
-        cacheSeconds: 1,
-      })
-      .toPromise();
+    // const content = builder
+    //   .get("homepage", {
+    //     userAttributes: { urlPath: "/" },
+    //     apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
+    //     cacheSeconds: 10,
+    //     cachebust: true,
+    //   })
+    //   .toPromise();
+
+    const base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const response = await fetch(`${base_url}/api/get-homedata`, {
+      cache: "no-store",
+    });
+    const content = await response.json();
 
     if (!content) {
       console.error(`Content isn't retrieved`);
@@ -39,19 +45,19 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const content = await fetchHomeData();
 
   return {
-    title: content?.data?.metatitle || "Default Title",
-    description: content?.data?.metadescription || "Default Description",
+    title: content?.data?.data?.metatitle || "Default Title",
+    description: content?.data?.data?.metadescription || "Default Description",
     alternates: {
-      canonical: content?.data?.canonical || "Default Canonical",
+      canonical: content?.data?.data?.canonical || "Default Canonical",
     },
     robots: {
-      index: content?.data?.robots?.index,
-      follow: content?.data?.robots?.follow,
-      nocache: content?.data?.robots?.nocache,
+      index: content?.data?.data?.robots?.index,
+      follow: content?.data?.data?.robots?.follow,
+      nocache: content?.data?.data?.robots?.nocache,
       googleBot: {
-        index: content?.data?.robots?.googleBot.index,
-        follow: content?.data?.robots?.googleBot.follow,
-        noimageindex: content?.data?.robots?.googleBot.noimageindex,
+        index: content?.data?.data?.robots?.googleBot.index,
+        follow: content?.data?.data?.robots?.googleBot.follow,
+        noimageindex: content?.data?.data?.robots?.googleBot.noimageindex,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
@@ -585,7 +591,7 @@ const Page = async () => {
   return (
     <div>
       <HomeComps
-        response={content}
+        response={content.data}
         customComponents={customComponents}
         // darklogo={content?.data?.darklogo}
         // lightlogo={content?.data?.lightlogo}

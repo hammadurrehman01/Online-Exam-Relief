@@ -2006,16 +2006,18 @@ export default async function Page(props: PageProps) {
       .toPromise(),
   ]);
 
-  // const baseUrl =
-  // process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+  const baseUrl =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
 
-  // const response = await fetch(`${baseUrl}/api/get-homedata`, {
-  //   cache: "reload",
-  //   headers:{
-  //     accept: 'application/json',
-  //   }})
+  const response = await fetch(`${baseUrl}/api/get-homedata`, {
+    cache: "reload",
+    headers:{
+      accept: 'application/json',
+    }})
 
-  const homeContent = await getHomeData();
+    const homeContent = await response.json()
+
+  // const homeContent = await getHomeData();
 
   if (!homeContent) {
     console.error("Home data is null. Rendering fallback UI.");
@@ -2024,9 +2026,9 @@ export default async function Page(props: PageProps) {
 
   return (
     <>
-      {homepageContent && (
+      {homeContent && (
         <RenderBuilderContent
-          content={homepageContent}
+          content={homeContent}
           inlineContent={true}
           apiKey={process.env.NEXT_PUBLIC_BUILDER_API_KEY!}
           model="homepage"
