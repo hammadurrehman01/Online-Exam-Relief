@@ -21,14 +21,14 @@ export const generateMetadata = async ({
       content?.data?.blocks[0]?.component?.options.blog_meta_description ||
       "Read this amazing blog!",
     alternates: {
-      canonical: `https://techdept.mmecloud.tech${content?.data?.url}`,
+      canonical: `https://gogrades-testing.eduresearchers.com${content?.data?.url}`,
     },
     openGraph: {
       title: content?.data?.blocks[0]?.component?.options.blog_meta_title,
       description:
         content?.data?.blocks[0]?.component?.options.blog_meta_description,
       images: content?.data?.blocks[0]?.component?.options.blog_featured_image,
-      url: `https://techdept.mmecloud.tech${content?.data?.url}`,
+      url: `https://gogrades-testing.eduresearchers.com${content?.data?.url}`,
     },
   };
 };

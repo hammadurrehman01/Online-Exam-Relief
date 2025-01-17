@@ -45,7 +45,7 @@ const CustomFaqToolTip = ({
           question,
           answer,
         }),
-        cache: "reload"
+        cache: "reload",
       });
 
       if (!response.ok) {
@@ -102,7 +102,7 @@ const CustomFaqToolTip = ({
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ targetedQuestion }),
-        cache: "reload"
+        cache: "reload",
       });
 
       if (!response.ok) {
@@ -125,10 +125,19 @@ const CustomFaqToolTip = ({
   const fetchFaqByQuestion = async (targetedQuestion: string) => {
     setModal(true);
     setIsEditing(true);
+    console.log("baseUrl ==>", baseUrl);
     try {
       const response = await fetch(
-        `${baseUrl}/api/faq/get-faq?question=${encodeURIComponent(targetedQuestion)}`,
-        { method: "GET", cache: "reload" }
+        `${
+          baseUrl
+        }/api/faq/get-faq/${targetedQuestion.replaceAll(" ", "-").replaceAll("?", "").toLowerCase()}`,
+        { cache: "reload" }
+
+        // {
+        //   method: "GET",
+        //   cache: "reload",
+        //   headers: { "Content-Type": "application/json" },
+        // }
       );
 
       if (!response.ok) {
@@ -137,6 +146,7 @@ const CustomFaqToolTip = ({
       }
 
       const data = await response.json();
+      console.log("data ==>", data);
       setUpdateQuestion(data.faq.question);
       setUpdateAnswer(data.faq.answer);
     } catch (error: any) {

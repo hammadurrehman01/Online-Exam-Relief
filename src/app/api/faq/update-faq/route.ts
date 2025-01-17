@@ -9,16 +9,10 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { updateQuestion, updateAnswer, question, answer } = body;
 
-    // if (!question || !answer) {
-    //   return NextResponse.json(
-    //     { error: "Missing required fields: question, or answer" },
-    //     { status: 400 }
-    //   );
-    // }
-
     const fileData = fs.readFileSync(filePath, "utf-8");
     const faqs = JSON.parse(fileData);
-
+    console.log("updateQuestion =>>", updateQuestion)
+    console.log("question =>>", question)
     const index = faqs.findIndex((faq: any) => faq.question === updateQuestion);
 
     if (index === -1) {

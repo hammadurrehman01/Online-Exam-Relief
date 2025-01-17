@@ -17,7 +17,8 @@ async function fetchBlogsData() {
       apiKey: "15a1f6006b8b43d9a1f6953c09e3b979",
       options: { noTargeting: true, limit: 100 },
       cache: false,
-      staleCacheSeconds: 0,
+      staleCacheSeconds: 4,
+      cacheSeconds: 1,
       query: {
         published: "published",
       },
